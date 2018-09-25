@@ -1,0 +1,28 @@
+body {
+  margin: 0;
+  padding: 0;
+  font-family: sans-serif;
+}
+div.Monster_stats {
+    background: aqua;
+    size: auto;
+    text-align: left;
+    padding: 1%;
+    width: 10%;
+    float: left;
+    margin-left: 15px;
+}
+
+div.Monster_img {
+    background: black;
+    width: auto;
+    height: 100px;
+}
+
+div.Hero_stats {
+    background: antiquewhite;
+    padding: 1%;
+    text-align: left;
+    width: 10%;
+    float: left;
+}
