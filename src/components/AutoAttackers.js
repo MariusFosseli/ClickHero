@@ -7,9 +7,13 @@ const AutoAttackers = (props) => {
 
   return (
     <div>
-      <button onClick={ () => props.buyAutoAttacker(props.index) }>
-        Buy {props.autoName}! DPS: {props.autoDPS} - price: {props.autoPrice}
-      </button>
+      <ul>
+        <li>
+      <h4>{props.autoName} level {props.timesBought}</h4>
+      <button onClick={ () => props.buyAutoAttacker(props.index) }>BUY</button>
+        <p>DPS: {props.autoDPS} - price: {props.autoPrice}</p>
+        </li>
+      </ul>
     </div>
   );
 };

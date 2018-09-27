@@ -10,8 +10,8 @@ const initalState = {
 
   heroName: "Hero",
   heroClickDamage: 1,
-  heroDPS: 1,
-  heroCash: 10,
+  heroDPS: 0,
+  heroCash: 1000,
 
   clickUpgradePrice: 5,
 
@@ -19,19 +19,25 @@ const initalState = {
     {
       autoName: "Benjamin",
       autoPrice: 10,
-      autoDPS: 2,
+      statePrice: 10,
+      autoDPS: 1,
+      stateDPS: 1,
       timesBought: 0,
     },
     {
       autoName: "Torleif",
       autoPrice: 50,
+      statePrice: 50,
       autoDPS: 10,
+      stateDPS: 10,
       timesBought: 0,
     },
     {
       autoName: "Conrad",
       autoPrice: 150,
-      autoDPS: 25,
+      statePrice: 150,
+      autoDPS: 30,
+      stateDPS: 30,
       timesBought: 0,
     }
   ]
@@ -84,15 +90,15 @@ export default function allActions(state=initalState, action) {
         state.heroDPS = state.heroDPS + hero.autoDPS;
         state.heroCash = state.heroCash - hero.autoPrice;
 
-        const newPrice = Math.round(hero.autoPrice * 1.5);
-        const newNextDPS = Math.round(hero.autoDPS * 1.25);
+        const newPrice = Math.round(hero.statePrice + (hero.statePrice * 0.5));
+        const newNextDPS = Math.round(hero.autoDPS + (hero.stateDPS * 0.3) + 0.5);
         return {
           ...hero,
           ...state,
           timesBought: hero.timesBought + 1,
           heroDPS: 10,
           autoDPS: newNextDPS,
-          autoPrice: newPrice,
+          autoPrice: hero.autoPrice + newPrice,
         };
       }
       console.log("Not enough cash");
@@ -107,11 +113,12 @@ export default function allActions(state=initalState, action) {
 
   case ActionTypes.AUTO_ATTACK: {
     console.log("Auto attacked");
-    const newHealth = state.healthRemain - state.heroDPS;
+    //const timedDPS = state.heroDPS / 10;
+    const newHealth = (state.healthRemain - state.heroDPS);
     console.log("  ", +newHealth);
     return {
       ...state,
-      healthRemain: newHealth,
+      healthRemain: newHealth
     };
   }
 

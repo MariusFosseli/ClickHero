@@ -6,7 +6,6 @@ import AutoAttackers from '../components/AutoAttackers';
 import { connect } from 'react-redux';
 
 
-
 class App extends Component {
 
   tick(){
@@ -26,7 +25,6 @@ class App extends Component {
 
   render() {
 
-
     const AutoAttackerComponent = this.props.heroes.map((hero, index) => (
       <AutoAttackers
         key={index}
@@ -38,6 +36,8 @@ class App extends Component {
         buyAutoAttacker={this.props.buyAutoAttacker}
       />
     ));
+
+
     return (
       <div>
         <div>
@@ -58,6 +58,7 @@ class App extends Component {
         healthRemain={this.props.healthRemain}
         monsterLevel={this.props.monsterLevel}
         clickAttackMonster={this.props.clickAttackMonster}
+        attackAsync={this.props.attackAsync}
         />
 
       </div>
@@ -90,6 +91,7 @@ const mapDispatchToProps = (dispatch) => {
     buyAutoAttacker: (index) => dispatch({type: "BUY_AUTO_ATTACKER", index: index}),
     autoAttack: () => dispatch({type: "AUTO_ATTACK"}),
     nextLevel: () => dispatch({type: "NEXT_LEVEL"}),
+    attackAsync: () => dispatch({type: "ATTACK_ASYNC"}),
   }
 };
 

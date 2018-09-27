@@ -14,6 +14,7 @@ const Monster = props => {
       <p>Health remaining: {props.healthRemain}</p>
       <p>Level: {props.monsterLevel}</p>
     </div>
+    <button onClick={ () => props.attackAsync()}>Attack after 1 second</button>
   </div>
   )
 };
