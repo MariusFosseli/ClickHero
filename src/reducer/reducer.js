@@ -8,11 +8,13 @@ const initalState = {
   healthRemain: 10,
   bossLife: 10,
   monsterLevel: 1,
+  bossTimer: 30,
+  isBoss: false,
 
   heroName: "Hero",
   heroClickDamage: 1,
   heroDPS: 0,
-  heroCash: 50,
+  heroCash: 1000,
 
   clickUpgradePrice: 5,
 
@@ -145,10 +147,12 @@ export default function allActions(state=initalState, action) {
   case ActionTypes.NEXT_LEVEL: {
     if(state.monsterLevel % 10 === 9) {
       console.log("BOSS LEVEL");
-      const newBalance = Math.round(state.heroCash + ((state.monsterLevel * 1.5) * 10));
-      const newCash = Math.round((state.healthMax * 0.1) * 5);
-      console.log("level " + state.monsterLevel + " completed --------------------" + (newCash) + " gold gained");
       const health = Math.round((state.healthMax + state.monsterLevel) * 10);
+      const newCash = Math.round(health * 0.1);
+      state.isBoss = true;
+
+      console.log("health" + state.healthRemain);
+      console.log("level " + state.monsterLevel + " completed --------------------" + (newCash) + " gold gained");
       return {
         ...state,
         bossLife: health,
@@ -156,13 +160,16 @@ export default function allActions(state=initalState, action) {
         heroCash: state.heroCash + newCash,
         monsterLevel: state.monsterLevel + 1,
       };
+
     } else {
       console.log("level " + state.monsterLevel + " completed");
       const newBalance = Math.round(state.heroCash + (state.monsterLevel * 2.5));
       const newHealth = Math.round((state.healthMax + state.monsterLevel) * 0.1);
 
-      const newCash = Math.round(state.healthMax * 0.1);
-    console.log("level " + state.monsterLevel + " completed --------------------" + (newCash) + " gold gained");
+      const newCash = Math.round(((state.healthMax + state.monsterLevel) * 0.025) + (state.monsterLevel * 0.5));
+      console.log("level " + state.monsterLevel + " completed --------------------" + (newCash) + " gold gained");
+
+      state.isBoss = false;
       return {
         ...state,
         healthMax: state.healthMax + newHealth,

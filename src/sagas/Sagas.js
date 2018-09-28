@@ -6,6 +6,8 @@ export function* helloSaga() {
   console.log("Hello Sagas");
 }
 
+//Async functions
+
 export function* attackAsync() {
   yield call(delay, 1000);
   yield put({type: AT.CLICK_ATTACK_MONSTER})
@@ -20,6 +22,8 @@ export function* buyClickAsync() {
   yield call(delay, 3000);
   yield put({type: AT.INCREASE_CLICK_DAMAGE })
 }
+
+//Watch functions
 
 export function* watchAttackAsync() {
   yield takeEvery('ATTACK_ASYNC', attackAsync)

@@ -1,6 +1,8 @@
 import React from 'react';
 import {PropTypes} from 'prop-types';
 
+
+
 const Monster = props => {
   return(
   <div className={"Monster_stats"}>
@@ -9,6 +11,7 @@ const Monster = props => {
 
     </div>
     <div>
+      {props.isBoss ? <h5>{props.bossTimer}</h5> : <h5> </h5>}
       <h3>Name: {props.monsterName}</h3>
       <p>Health: {props.healthMax}</p>
       <p>Health remaining: {props.healthRemain}</p>
@@ -25,6 +28,7 @@ Monster.propTypes = {
   healthRemain: PropTypes.number.isRequired,
   monsterLevel: PropTypes.number.isRequired,
   clickAttackMonster: PropTypes.func.isRequired,
+  isBoss: PropTypes.bool.isRequired,
 };
 
 export default Monster;

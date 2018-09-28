@@ -5,8 +5,8 @@ import Hero from '../components/Hero';
 import AutoAttackers from '../components/AutoAttackers';
 import { connect } from 'react-redux';
 
-
 class App extends Component {
+
 
   tick(){
     this.props.autoAttack();
@@ -24,6 +24,8 @@ class App extends Component {
   }
 
   render() {
+
+    const boss = this.props.isBoss;
 
     const AutoAttackerComponent = this.props.heroes.map((hero, index) => (
       <AutoAttackers
@@ -61,6 +63,8 @@ class App extends Component {
         monsterLevel={this.props.monsterLevel}
         clickAttackMonster={this.props.clickAttackMonster}
         attackAsync={this.props.attackAsync}
+        isBoss={boss}
+        bossTimer={this.props.bossTimer}
         />
 
       </div>
@@ -81,6 +85,8 @@ const mapStateToProps = (state) => {
     healthMax: state.healthMax,
     healthRemain: state.healthRemain,
     monsterLevel: state.monsterLevel,
+    bossTimer: state.bossTimer,
+    isBoss: state.isBoss,
     //Auto Attackers
     heroes: state.heroes,
   }
