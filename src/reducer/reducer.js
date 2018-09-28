@@ -12,7 +12,7 @@ const initalState = {
   heroName: "Hero",
   heroClickDamage: 1,
   heroDPS: 0,
-  heroCash: 750000000000000,
+  heroCash: 50,
 
   clickUpgradePrice: 5,
 
@@ -99,8 +99,8 @@ export default function allActions(state=initalState, action) {
         state.heroDPS = state.heroDPS + hero.autoDPS;
         state.heroCash = state.heroCash - hero.autoPrice;
 
-        const newPrice = Math.round((hero.autoPrice + hero.statePrice) * 1.5);
-        const newNextDPS = Math.round((hero.autoDPS + hero.stateDPS) * 1.1);
+        const newPrice = Math.round(hero.autoPrice * 0.3);
+        const newNextDPS = Math.round(hero.autoDPS + (hero.autoDPS * 0.1) + 0.5);
 
         if(hero.timesBought % 10 === 9) {
           console.log("Level ends with 0");
@@ -108,8 +108,8 @@ export default function allActions(state=initalState, action) {
             ...hero,
             ...state,
             timesBought: hero.timesBought + 1,
-            autoDPS: (newNextDPS * 2),
-            autoPrice: newPrice,
+            autoDPS: (hero.autoDPS * 2),
+            autoPrice: hero.autoPrice + newPrice,
           };
         } else {
           console.log("OTHER LEVEL");
@@ -118,7 +118,7 @@ export default function allActions(state=initalState, action) {
             ...state,
             timesBought: hero.timesBought + 1,
             autoDPS: newNextDPS,
-            autoPrice: newPrice,
+            autoPrice: hero.autoPrice + newPrice,
           };
         }
       }
@@ -146,23 +146,28 @@ export default function allActions(state=initalState, action) {
     if(state.monsterLevel % 10 === 9) {
       console.log("BOSS LEVEL");
       const newBalance = Math.round(state.heroCash + ((state.monsterLevel * 1.5) * 10));
-      console.log("level " + state.monsterLevel + " completed --------------------" + ((state.monsterLevel * 1.5) * 10) + " gold gained");
-      const health = Math.round(state.healthMax * state.monsterLevel);
+      const newCash = Math.round((state.healthMax * 0.1) * 5);
+      console.log("level " + state.monsterLevel + " completed --------------------" + (newCash) + " gold gained");
+      const health = Math.round((state.healthMax + state.monsterLevel) * 10);
       return {
         ...state,
         bossLife: health,
         healthRemain: health,
-        heroCash: newBalance,
+        heroCash: state.heroCash + newCash,
         monsterLevel: state.monsterLevel + 1,
       };
     } else {
       console.log("level " + state.monsterLevel + " completed");
-      const newBalance = Math.round(state.heroCash + (state.monsterLevel * 1.5));
+      const newBalance = Math.round(state.heroCash + (state.monsterLevel * 2.5));
+      const newHealth = Math.round((state.healthMax + state.monsterLevel) * 0.1);
+
+      const newCash = Math.round(state.healthMax * 0.1);
+    console.log("level " + state.monsterLevel + " completed --------------------" + (newCash) + " gold gained");
       return {
         ...state,
-        healthMax: Math.round(state.healthMax * 1.1),
-        healthRemain: Math.round(state.healthMax * 1.1),
-        heroCash: newBalance,
+        healthMax: state.healthMax + newHealth,
+        healthRemain: state.healthMax + newHealth,
+        heroCash: state.heroCash + newCash,
         monsterLevel: state.monsterLevel + 1,
       };
     }

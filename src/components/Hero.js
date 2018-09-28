@@ -11,6 +11,9 @@ const Hero = props => {
       <p>Hero cash: {props.heroCash}</p>
 
       <button onClick={ () => props.increaseClickDamage() }>Upgrade Damage, price {props.clickUpgradePrice}</button>
+
+      <button onClick={ () => props.buyClickAsync()}>Increase damage after 3 seconds</button>
+
     </div>
     </div>
 

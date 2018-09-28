@@ -11,14 +11,9 @@ export const increaseClickDamage = () => {
   };
 };
 
-export const buyAutoAttacker = (index, heroDPS, autoDPS, heroDPS, timesBought, autoPrice) => {
+export const buyAutoAttacker = () => {
   return {
     type: ActionTypes.BUY_AUTO_ATTACKER,
-    index,
-    heroDPS,
-    autoDPS,
-    timesBought,
-    autoPrice
   };
 };
 

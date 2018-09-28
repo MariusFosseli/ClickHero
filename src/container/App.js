@@ -34,6 +34,7 @@ class App extends Component {
         autoDPS={hero.autoDPS}
         timesBought={hero.timesBought}
         buyAutoAttacker={this.props.buyAutoAttacker}
+        buyAutoAsync={this.props.buyAutoAsync}
       />
     ));
 
@@ -50,6 +51,7 @@ class App extends Component {
           heroCash={this.props.heroCash}
           increaseClickDamage={this.props.increaseClickDamage}
           clickUpgradePrice={this.props.clickUpgradePrice}
+          buyClickAsync={this.props.buyClickAsync}
         />
 
         <Monster
@@ -92,6 +94,8 @@ const mapDispatchToProps = (dispatch) => {
     autoAttack: () => dispatch({type: "AUTO_ATTACK"}),
     nextLevel: () => dispatch({type: "NEXT_LEVEL"}),
     attackAsync: () => dispatch({type: "ATTACK_ASYNC"}),
+    buyAutoAsync: (index) => dispatch({type: "BUY_AUTO_ASYNC", index: index}),
+    buyClickAsync: () => dispatch({type: "INCREASE_CLICK_DAMAGE_ASYNC"}),
   }
 };
 
