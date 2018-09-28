@@ -40,7 +40,7 @@ class App extends Component {
 
     return (
       <div>
-        <div>
+        <div className={"Big_stats"}>
           {AutoAttackerComponent}
         </div>
         <Hero

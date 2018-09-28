@@ -6,12 +6,13 @@ const initalState = {
   monsterName: "Monster",
   healthMax: 10,
   healthRemain: 10,
+  bossLife: 10,
   monsterLevel: 1,
 
   heroName: "Hero",
   heroClickDamage: 1,
   heroDPS: 0,
-  heroCash: 1000,
+  heroCash: 750000000000000,
 
   clickUpgradePrice: 5,
 
@@ -22,7 +23,7 @@ const initalState = {
       statePrice: 10,
       autoDPS: 1,
       stateDPS: 1,
-      timesBought: 0,
+      timesBought: 1,
     },
     {
       autoName: "Torleif",
@@ -30,7 +31,7 @@ const initalState = {
       statePrice: 50,
       autoDPS: 10,
       stateDPS: 10,
-      timesBought: 0,
+      timesBought: 1,
     },
     {
       autoName: "Conrad",
@@ -38,7 +39,15 @@ const initalState = {
       statePrice: 150,
       autoDPS: 30,
       stateDPS: 30,
-      timesBought: 0,
+      timesBought: 1,
+    },
+    {
+      autoName: "Harald",
+      autoPrice: 750,
+      statePrice: 750,
+      autoDPS: 125,
+      stateDPS: 125,
+      timesBought: 1,
     }
   ]
 };
@@ -90,16 +99,28 @@ export default function allActions(state=initalState, action) {
         state.heroDPS = state.heroDPS + hero.autoDPS;
         state.heroCash = state.heroCash - hero.autoPrice;
 
-        const newPrice = Math.round(hero.statePrice + (hero.statePrice * 0.5));
-        const newNextDPS = Math.round(hero.autoDPS + (hero.stateDPS * 0.3) + 0.5);
-        return {
-          ...hero,
-          ...state,
-          timesBought: hero.timesBought + 1,
-          heroDPS: 10,
-          autoDPS: newNextDPS,
-          autoPrice: hero.autoPrice + newPrice,
-        };
+        const newPrice = Math.round((hero.autoPrice + hero.statePrice) * 1.5);
+        const newNextDPS = Math.round((hero.autoDPS + hero.stateDPS) * 1.1);
+
+        if(hero.timesBought % 10 === 9) {
+          console.log("Level ends with 0");
+          return {
+            ...hero,
+            ...state,
+            timesBought: hero.timesBought + 1,
+            autoDPS: (newNextDPS * 2),
+            autoPrice: newPrice,
+          };
+        } else {
+          console.log("OTHER LEVEL");
+          return {
+            ...hero,
+            ...state,
+            timesBought: hero.timesBought + 1,
+            autoDPS: newNextDPS,
+            autoPrice: newPrice,
+          };
+        }
       }
       console.log("Not enough cash");
       return hero;
@@ -113,7 +134,6 @@ export default function allActions(state=initalState, action) {
 
   case ActionTypes.AUTO_ATTACK: {
     console.log("Auto attacked");
-    //const timedDPS = state.heroDPS / 10;
     const newHealth = (state.healthRemain - state.heroDPS);
     console.log("  ", +newHealth);
     return {
@@ -123,16 +143,29 @@ export default function allActions(state=initalState, action) {
   }
 
   case ActionTypes.NEXT_LEVEL: {
-    console.log("level " + state.monsterLevel + " completed");
-    const newBalance = Math.round(state.heroCash + (state.monsterLevel * 1.5));
-    return {
-      ...state,
-      healthMax: Math.round(state.healthMax * 1.1),
-      healthRemain: Math.round(state.healthMax * 1.1),
-      heroCash: newBalance,
-      monsterLevel: state.monsterLevel + 1,
-    };
-
+    if(state.monsterLevel % 10 === 9) {
+      console.log("BOSS LEVEL");
+      const newBalance = Math.round(state.heroCash + ((state.monsterLevel * 1.5) * 10));
+      console.log("level " + state.monsterLevel + " completed --------------------" + ((state.monsterLevel * 1.5) * 10) + " gold gained");
+      const health = Math.round(state.healthMax * state.monsterLevel);
+      return {
+        ...state,
+        bossLife: health,
+        healthRemain: health,
+        heroCash: newBalance,
+        monsterLevel: state.monsterLevel + 1,
+      };
+    } else {
+      console.log("level " + state.monsterLevel + " completed");
+      const newBalance = Math.round(state.heroCash + (state.monsterLevel * 1.5));
+      return {
+        ...state,
+        healthMax: Math.round(state.healthMax * 1.1),
+        healthRemain: Math.round(state.healthMax * 1.1),
+        heroCash: newBalance,
+        monsterLevel: state.monsterLevel + 1,
+      };
+    }
   }
 
   default:
