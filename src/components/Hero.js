@@ -1,7 +1,21 @@
 import React from 'react';
 import {PropTypes} from 'prop-types';
+import AutoAttackers from './AutoAttackers';
 
 const Hero = props => {
+
+const AutoAttackerComponent = props.heroes.map((hero, index) => (
+  <AutoAttackers
+    key={index}
+    index={index}
+    autoName={hero.autoName}
+    autoPrice={hero.autoPrice}
+    autoDPS={hero.autoDPS}
+    timesBought={hero.timesBought}
+    buyAutoAttacker={props.buyAutoAttacker}
+    buyAutoAsync={props.buyAutoAsync}
+  />
+));
   return(
     <div>
     <div className={"Hero_stats"}>
@@ -14,6 +28,7 @@ const Hero = props => {
 
       <button onClick={ () => props.buyClickAsync()}>Increase damage after 3 seconds</button>
 
+        {AutoAttackerComponent}
     </div>
     </div>
 

@@ -7,14 +7,31 @@ import { connect } from 'react-redux';
 
 class App extends Component {
 
+  bossFight() {
+    if(this.props.isBoss === true) {
+    if(this.props.bossTimer < 1) {
+    this.props.prevLevel();
+    }
+      this.props.bossFight();
+  }
+}
+
+asd() {
+  if(this.props.healthRemain < 1){
+    this.props.nextLevel();
+    this.props.moreMoney();
+  }
+}
 
   tick(){
+    this.bossFight();
     this.props.autoAttack();
-    if(this.props.healthRemain < 1)
-    {
-      this.props.nextLevel();
-    }
-  }
+    this.asd();
+}
+
+  // tick() {
+  //   this.props.autoAttack();
+  // }
 
   componentDidMount() {
     this.interval = setInterval(() => this.tick(), 1000);
@@ -27,25 +44,22 @@ class App extends Component {
 
     const boss = this.props.isBoss;
 
-    const AutoAttackerComponent = this.props.heroes.map((hero, index) => (
-      <AutoAttackers
-        key={index}
-        index={index}
-        autoName={hero.autoName}
-        autoPrice={hero.autoPrice}
-        autoDPS={hero.autoDPS}
-        timesBought={hero.timesBought}
-        buyAutoAttacker={this.props.buyAutoAttacker}
-        buyAutoAsync={this.props.buyAutoAsync}
-      />
-    ));
+    // const AutoAttackerComponent = this.props.heroes.map((hero, index) => (
+    //   <AutoAttackers
+    //     key={index}
+    //     index={index}
+    //     autoName={hero.autoName}
+    //     autoPrice={hero.autoPrice}
+    //     autoDPS={hero.autoDPS}
+    //     timesBought={hero.timesBought}
+    //     buyAutoAttacker={this.props.buyAutoAttacker}
+    //     buyAutoAsync={this.props.buyAutoAsync}
+    //   />
+    // ));
 
 
     return (
       <div>
-        <div className={"Big_stats"}>
-          {AutoAttackerComponent}
-        </div>
         <Hero
           heroName={this.props.heroName}
           heroClickDamage={this.props.heroClickDamage}
@@ -54,6 +68,8 @@ class App extends Component {
           increaseClickDamage={this.props.increaseClickDamage}
           clickUpgradePrice={this.props.clickUpgradePrice}
           buyClickAsync={this.props.buyClickAsync}
+          buyAutoAttacker={this.props.buyAutoAttacker}
+          heroes={this.props.heroes}
         />
 
         <Monster
@@ -102,6 +118,9 @@ const mapDispatchToProps = (dispatch) => {
     attackAsync: () => dispatch({type: "ATTACK_ASYNC"}),
     buyAutoAsync: (index) => dispatch({type: "BUY_AUTO_ASYNC", index: index}),
     buyClickAsync: () => dispatch({type: "INCREASE_CLICK_DAMAGE_ASYNC"}),
+    bossFight: () => dispatch({type: "BOSS_FIGHT"}),
+    prevLevel: () => dispatch({type: "PREV_LEVEL"}),
+    moreMoney: () => dispatch({type: "MORE_MONEY"}),
   }
 };
 

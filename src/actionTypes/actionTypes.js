@@ -3,6 +3,9 @@ export const INCREASE_CLICK_DAMAGE = "INCREASE_CLICK_DAMAGE";
 export const BUY_AUTO_ATTACKER = "BUY_AUTO_ATTACKER";
 export const AUTO_ATTACK = "AUTO_ATTACK";
 export const NEXT_LEVEL = "NEXT_LEVEL";
+export const PREV_LEVEL = "PREV_LEVEL";
+export const BOSS_FIGHT = "BOSS_FIGHT";
+export const MORE_MONEY = "MORE_MONEY";
 
 // SAGA FUNCTIONS
 export const ATTACK_ASYNC = "ATTACK_ASYNC";

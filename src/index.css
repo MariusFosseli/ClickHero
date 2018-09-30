@@ -8,22 +8,24 @@ div.Monster_stats {
     size: auto;
     text-align: left;
     padding: 1%;
-    width: 10%;
+    width: 20%;
     float: left;
+    margin: 5%;
 }
 
 div.Monster_img {
     background: black;
     width: auto;
-    height: 100px;
+    height: 250px;
 }
 
 div.Hero_stats {
     background: antiquewhite;
     padding: 1%;
-    text-align: left;
-    width: 10%;
+    text-align: center;
+    width: 20%;
     float: left;
+    margin: 5%;
 }
 
 div.Big_stats {
@@ -40,5 +42,3 @@ div.Small_stats {
     margin: 1%;
     text-align: center;
 }
-
-

@@ -8,13 +8,14 @@ const initalState = {
   healthRemain: 10,
   bossLife: 10,
   monsterLevel: 1,
-  bossTimer: 30,
+  initTime: 30,
+  bossTimer: 0,
   isBoss: false,
 
   heroName: "Hero",
   heroClickDamage: 1,
   heroDPS: 0,
-  heroCash: 1000,
+  heroCash: 2000,
 
   clickUpgradePrice: 5,
 
@@ -55,26 +56,14 @@ const initalState = {
 };
 
 export default function allActions(state=initalState, action) {
+  const newHealth = Math.round(10 + Math.pow(state.monsterLevel, 1.7));
   switch (action.type) {
 
   case  ActionTypes.CLICK_ATTACK_MONSTER: {
-      if(state.healthRemain < 1) {
-        const newLevel = state.monsterLevel+1;
-        console.log("Killed");
-        return {
-          ...state,
-          healthMax: Math.round(state.healthMax * 1.1),
-          healthRemain: Math.round(state.healthMax * 1.1),
-          monsterLevel: newLevel,
-          heroCash: state.heroCash + state.monsterLevel,
-        };
-      } else {
-        console.log("Attacked");
         return {
           ...state,
           healthRemain: state.healthRemain - state.heroClickDamage
         };
-      }
   }
 
   case ActionTypes.INCREASE_CLICK_DAMAGE: {
@@ -105,7 +94,6 @@ export default function allActions(state=initalState, action) {
         const newNextDPS = Math.round(hero.autoDPS + (hero.autoDPS * 0.1) + 0.5);
 
         if(hero.timesBought % 10 === 9) {
-          console.log("Level ends with 0");
           return {
             ...hero,
             ...state,
@@ -114,9 +102,7 @@ export default function allActions(state=initalState, action) {
             autoPrice: hero.autoPrice + newPrice,
           };
         } else {
-          console.log("OTHER LEVEL");
           return {
-            ...hero,
             ...state,
             timesBought: hero.timesBought + 1,
             autoDPS: newNextDPS,
@@ -135,50 +121,79 @@ export default function allActions(state=initalState, action) {
   }
 
   case ActionTypes.AUTO_ATTACK: {
-    console.log("Auto attacked");
-    const newHealth = (state.healthRemain - state.heroDPS);
-    console.log("  ", +newHealth);
     return {
       ...state,
-      healthRemain: newHealth
+      healthRemain: (state.healthRemain - state.heroDPS)
     };
   }
 
-  case ActionTypes.NEXT_LEVEL: {
-    if(state.monsterLevel % 10 === 9) {
-      console.log("BOSS LEVEL");
-      const health = Math.round((state.healthMax + state.monsterLevel) * 10);
-      const newCash = Math.round(health * 0.1);
-      state.isBoss = true;
-
-      console.log("health" + state.healthRemain);
-      console.log("level " + state.monsterLevel + " completed --------------------" + (newCash) + " gold gained");
+  case ActionTypes.BOSS_FIGHT: {
       return {
         ...state,
-        bossLife: health,
-        healthRemain: health,
-        heroCash: state.heroCash + newCash,
-        monsterLevel: state.monsterLevel + 1,
-      };
-
-    } else {
-      console.log("level " + state.monsterLevel + " completed");
-      const newBalance = Math.round(state.heroCash + (state.monsterLevel * 2.5));
-      const newHealth = Math.round((state.healthMax + state.monsterLevel) * 0.1);
-
-      const newCash = Math.round(((state.healthMax + state.monsterLevel) * 0.025) + (state.monsterLevel * 0.5));
-      console.log("level " + state.monsterLevel + " completed --------------------" + (newCash) + " gold gained");
-
-      state.isBoss = false;
-      return {
-        ...state,
-        healthMax: state.healthMax + newHealth,
-        healthRemain: state.healthMax + newHealth,
-        heroCash: state.heroCash + newCash,
-        monsterLevel: state.monsterLevel + 1,
+        bossTimer: state.bossTimer - 1,
       };
     }
+
+  case ActionTypes.PREV_LEVEL: {
+    return{
+    ...state,
+    isBoss:false,
+    monsterLevel: state.monsterLevel - 1,
+    healthMax: newHealth - state.monsterLevel * 1.7,
+    healthRemain: newHealth,
+};
   }
+
+  case ActionTypes.NEXT_LEVEL: {
+    let bossLevel = state.monsterLevel%10;
+    if(bossLevel === 9) {
+      state.isBoss = true;
+    return{
+      ...state,
+      bossTimer: state.initTime,
+      healthMax: newHealth,
+      healthRemain: newHealth * 10,
+      monsterLevel: state.monsterLevel + 1,
+    };
+  } else {
+    state.isBoss = false;
+      return{
+      ...state,
+      healthMax: newHealth,
+      healthRemain: newHealth,
+      monsterLevel: state.monsterLevel + 1,
+  };
+}
+}
+
+case ActionTypes.MORE_MONEY: {
+  const newBalance = Math.round(state.heroCash +
+    (state.healthMax * 0.1)
+  );
+  console.log("New balace: " + newBalance);
+  console.log("Gold gaiend: " + Math.round(state.healthMax * 0.1));
+  return{
+    ...state,
+    heroCash: newBalance,
+  }
+}
+
+// FUNCTION NEXT LEVEL,
+// run on app.tick() function after health is 0
+
+// FUNCTION AUTO ATTACK,
+// should only take heros DPS - monster health
+
+// FUNCTION BUY AUTO ATTACKER,
+// should increase the price and next dps value
+// also increase the value for heros dps
+
+// FUNCTION UPGRADE AUTO ATTACKER
+// should reset to the auto attackers stats,
+// but increase the % for dps increase
+
+//FUNCTION FOR BOSS?
+//should take timer as param
 
   default:
     return state;
