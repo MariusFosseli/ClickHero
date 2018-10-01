@@ -15,7 +15,8 @@ const initalState = {
   heroName: "Hero",
   heroClickDamage: 1,
   heroDPS: 0,
-  heroCash: 2000,
+  heroCash: 1000,
+  autoIncrease: true,
 
   clickUpgradePrice: 5,
 
@@ -56,7 +57,7 @@ const initalState = {
 };
 
 export default function allActions(state=initalState, action) {
-  const newHealth = Math.round(10 + Math.pow(state.monsterLevel, 1.7));
+  const newHealth = Math.round(10 + Math.pow(state.monsterLevel, 2.1));
   switch (action.type) {
 
   case  ActionTypes.CLICK_ATTACK_MONSTER: {
@@ -90,7 +91,7 @@ export default function allActions(state=initalState, action) {
         state.heroDPS = state.heroDPS + hero.autoDPS;
         state.heroCash = state.heroCash - hero.autoPrice;
 
-        const newPrice = Math.round(hero.autoPrice * 0.3);
+        const newPrice = Math.round(hero.autoPrice * 0.5);
         const newNextDPS = Math.round(hero.autoDPS + (hero.autoDPS * 0.1) + 0.5);
 
         if(hero.timesBought % 10 === 9) {
@@ -121,16 +122,19 @@ export default function allActions(state=initalState, action) {
   }
 
   case ActionTypes.AUTO_ATTACK: {
+    let damage = state.heroDPS / 10;
+    let attack = (state.healthRemain - damage);
     return {
       ...state,
-      healthRemain: (state.healthRemain - state.heroDPS)
+      healthRemain: attack,
     };
   }
 
   case ActionTypes.BOSS_FIGHT: {
+    let time = (state.bossTimer - 0.1);
       return {
         ...state,
-        bossTimer: state.bossTimer - 1,
+        bossTimer: time,
       };
     }
 
@@ -151,6 +155,7 @@ export default function allActions(state=initalState, action) {
     return{
       ...state,
       bossTimer: state.initTime,
+      bossLife: newHealth * 10,
       healthMax: newHealth,
       healthRemain: newHealth * 10,
       monsterLevel: state.monsterLevel + 1,
@@ -167,33 +172,53 @@ export default function allActions(state=initalState, action) {
 }
 
 case ActionTypes.MORE_MONEY: {
-  const newBalance = Math.round(state.heroCash +
-    (state.healthMax * 0.1)
-  );
+  let bossLevel = state.monsterLevel%10;
+  if(bossLevel === 0) {
+    const newBalance = Math.round(
+      state.heroCash + (state.bossLife * 0.1)
+    );
   console.log("New balace: " + newBalance);
-  console.log("Gold gaiend: " + Math.round(state.healthMax * 0.1));
+  console.log("Gold gaiend: " + Math.round(state.bossLife * 0.1));
   return{
     ...state,
     heroCash: newBalance,
+  };
+} else {
+    const newBalance = Math.round(
+      state.heroCash + (state.healthMax * 0.1)
+    );
+    console.log("New balace: " + newBalance);
+    console.log("Gold gaiend: " + Math.round(state.healthMax * 0.1));
+    return {
+      ...state,
+      heroCash: newBalance
+    }
   }
+}
+
+case ActionTypes.SAME_LEVEL: {
+  return {
+    ...state,
+    healthMax: newHealth,
+    healthRemain: newHealth,
+  };
+}
+
+case ActionTypes.TOGGLE_AUTO_INCREASE: {
+  console.log("Status is : " + state.autoIncrease);
+  return {
+    ...state,
+    autoIncrease: !state.autoIncrease,
+  };
 }
 
 // FUNCTION NEXT LEVEL,
 // run on app.tick() function after health is 0
 
-// FUNCTION AUTO ATTACK,
-// should only take heros DPS - monster health
-
-// FUNCTION BUY AUTO ATTACKER,
-// should increase the price and next dps value
-// also increase the value for heros dps
-
 // FUNCTION UPGRADE AUTO ATTACKER
 // should reset to the auto attackers stats,
 // but increase the % for dps increase
 
-//FUNCTION FOR BOSS?
-//should take timer as param
 
   default:
     return state;

@@ -26,6 +26,8 @@ const AutoAttackerComponent = props.heroes.map((hero, index) => (
 
       <button onClick={ () => props.increaseClickDamage() }>Upgrade Damage, price {props.clickUpgradePrice}</button>
 
+      <button onClick={ () => props.toggleAutoIncrease() }>Auto Increase levels: {props.autoIncrease.toString()}</button>
+
       <button onClick={ () => props.buyClickAsync()}>Increase damage after 3 seconds</button>
 
         {AutoAttackerComponent}
@@ -41,6 +43,7 @@ Hero.propTypes = {
   heroDPS: PropTypes.number.isRequired,
   heroCash: PropTypes.number.isRequired,
   increaseClickDamage: PropTypes.func.isRequired,
+  autoIncrease: PropTypes.bool.isRequired,
 };
 
 export default Hero;

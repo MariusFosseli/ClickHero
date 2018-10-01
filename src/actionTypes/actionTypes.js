@@ -6,6 +6,8 @@ export const NEXT_LEVEL = "NEXT_LEVEL";
 export const PREV_LEVEL = "PREV_LEVEL";
 export const BOSS_FIGHT = "BOSS_FIGHT";
 export const MORE_MONEY = "MORE_MONEY";
+export const TOGGLE_AUTO_INCREASE = "TOGGLE_AUTO_INCREASE";
+export const SAME_LEVEL = "SAME_LEVEL";
 
 // SAGA FUNCTIONS
 export const ATTACK_ASYNC = "ATTACK_ASYNC";

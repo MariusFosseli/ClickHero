@@ -2,15 +2,15 @@ import React, { Component, PropTypes } from 'react';
 
 import Monster from '../components/Monster';
 import Hero from '../components/Hero';
-import AutoAttackers from '../components/AutoAttackers';
 import { connect } from 'react-redux';
 
 class App extends Component {
 
   bossFight() {
     if(this.props.isBoss === true) {
-    if(this.props.bossTimer < 1) {
+      if(this.props.bossTimer < 1) {
     this.props.prevLevel();
+    this.props.toggleAutoIncrease();
     }
       this.props.bossFight();
   }
@@ -18,8 +18,12 @@ class App extends Component {
 
 asd() {
   if(this.props.healthRemain < 1){
-    this.props.nextLevel();
     this.props.moreMoney();
+    if(this.props.autoIncrease === true) {
+      this.props.sameLevel();
+    } else {
+      this.props.nextLevel();
+    }
   }
 }
 
@@ -34,7 +38,7 @@ asd() {
   // }
 
   componentDidMount() {
-    this.interval = setInterval(() => this.tick(), 1000);
+    this.interval = setInterval(() => this.tick(), 100);
   }
   componentWillUnmount() {
     clearInterval(this.interval);
@@ -70,6 +74,8 @@ asd() {
           buyClickAsync={this.props.buyClickAsync}
           buyAutoAttacker={this.props.buyAutoAttacker}
           heroes={this.props.heroes}
+          toggleAutoIncrease={this.props.toggleAutoIncrease}
+          autoIncrease={this.props.autoIncrease}
         />
 
         <Monster
@@ -96,6 +102,7 @@ const mapStateToProps = (state) => {
     heroDPS: state.heroDPS,
     heroCash: state.heroCash,
     clickUpgradePrice: state.clickUpgradePrice,
+    autoIncrease: state.autoIncrease,
     //Monster
     monsterName: state.monsterName,
     healthMax: state.healthMax,
@@ -121,6 +128,8 @@ const mapDispatchToProps = (dispatch) => {
     bossFight: () => dispatch({type: "BOSS_FIGHT"}),
     prevLevel: () => dispatch({type: "PREV_LEVEL"}),
     moreMoney: () => dispatch({type: "MORE_MONEY"}),
+    toggleAutoIncrease: () => dispatch({type: "TOGGLE_AUTO_INCREASE"}),
+    sameLevel: () => dispatch({type: "SAME_LEVEL"}),
   }
 };
 

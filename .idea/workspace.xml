@@ -2,11 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="88efa251-4a9d-48a6-bd4c-e4e605a575a3" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/src/components/Monster.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Monster.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/actionTypes/actionTypes.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/actionTypes/actionTypes.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Hero.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Hero.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/container/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/container/App.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/reducer/reducer.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/reducer/reducer.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/sagas/Sagas.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/sagas/Sagas.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/sagas/sagas.spec.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/sagas/sagas.spec.js" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -17,11 +16,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="App.js" pinned="false" current-in-tab="true">
+      <file leaf-file-name="App.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/container/App.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="135">
-              <caret line="13" column="5" selection-start-line="13" selection-start-column="5" selection-end-line="13" selection-end-column="5" />
+            <state relative-caret-position="417">
+              <caret line="40" column="54" lean-forward="true" selection-start-line="40" selection-start-column="54" selection-end-line="40" selection-end-column="54" />
               <folding>
                 <element signature="e#0#52#0" expanded="true" />
               </folding>
@@ -32,8 +31,8 @@
       <file leaf-file-name="Hero.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/components/Hero.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="255">
-              <caret line="17" column="10" selection-start-line="17" selection-start-column="10" selection-end-line="17" selection-end-column="10" />
+            <state relative-caret-position="375">
+              <caret line="28" column="111" selection-start-line="28" selection-start-column="111" selection-end-line="28" selection-end-column="111" />
               <folding>
                 <element signature="e#0#26#0" expanded="true" />
               </folding>
@@ -65,8 +64,8 @@
       <file leaf-file-name="actionTypes.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/actionTypes/actionTypes.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="75">
-              <caret line="9" column="73" selection-start-line="9" selection-start-column="73" selection-end-line="9" selection-end-column="73" />
+            <state relative-caret-position="135">
+              <caret line="9" column="39" selection-start-line="9" selection-start-column="39" selection-end-line="9" selection-end-column="39" />
             </state>
           </provider>
         </entry>
@@ -74,7 +73,7 @@
       <file leaf-file-name="AutoAttackers.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/components/AutoAttackers.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="210">
+            <state relative-caret-position="240">
               <caret line="16" column="10" selection-start-line="16" selection-start-column="10" selection-end-line="16" selection-end-column="10" />
               <folding>
                 <element signature="e#0#26#0" expanded="true" />
@@ -83,11 +82,20 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="reducer.js" pinned="false" current-in-tab="false">
+      <file leaf-file-name="reducer.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/reducer/reducer.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="205">
-              <caret line="151" column="25" selection-start-line="151" selection-start-column="21" selection-end-line="151" selection-end-column="25" />
+            <state relative-caret-position="554">
+              <caret line="188" column="6" lean-forward="true" selection-start-line="188" selection-start-column="6" selection-end-line="188" selection-end-column="6" />
+              <folding>
+                <element signature="e#122#989#0" />
+                <element signature="e#1133#1293#0" />
+                <element signature="e#1297#1747#0" />
+                <element signature="e#1751#2844#0" />
+                <element signature="e#3126#3331#0" />
+                <element signature="e#3416#3929#0" />
+                <element signature="e#4508#4625#0" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -149,13 +157,13 @@
         <option value="$PROJECT_DIR$/src/index.css" />
         <option value="$PROJECT_DIR$/src/components/AutoAttackers.js" />
         <option value="$PROJECT_DIR$/src/actions/actions.js" />
-        <option value="$PROJECT_DIR$/src/actionTypes/actionTypes.js" />
-        <option value="$PROJECT_DIR$/src/components/Hero.js" />
         <option value="$PROJECT_DIR$/src/sagas/sagas.spec.js" />
         <option value="$PROJECT_DIR$/src/sagas/Sagas.js" />
-        <option value="$PROJECT_DIR$/src/reducer/reducer.js" />
         <option value="$PROJECT_DIR$/src/components/Monster.js" />
+        <option value="$PROJECT_DIR$/src/components/Hero.js" />
+        <option value="$PROJECT_DIR$/src/actionTypes/actionTypes.js" />
         <option value="$PROJECT_DIR$/src/container/App.js" />
+        <option value="$PROJECT_DIR$/src/reducer/reducer.js" />
       </list>
     </option>
   </component>
@@ -164,6 +172,12 @@
   <component name="JsGulpfileManager">
     <detection-done>true</detection-done>
     <sorting>DEFINITION_ORDER</sorting>
+  </component>
+  <component name="MavenProjectNavigator">
+    <treeState>
+      <expand />
+      <select />
+    </treeState>
   </component>
   <component name="NodeModulesDirectoryManager">
     <handled-path value="$PROJECT_DIR$/node_modules" />
@@ -347,42 +361,42 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="77870000" />
+    <option name="totallyTimeSpent" value="88260000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-1" y="0" width="1922" height="1201" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info anchor="right" id="Palette" order="5" />
+      <window_info anchor="right" id="Palette" order="9" />
       <window_info anchor="bottom" id="TODO" order="10" />
-      <window_info anchor="right" id="Palette&#9;" order="1" />
+      <window_info anchor="right" id="Palette&#9;" order="2" />
       <window_info id="Image Layers" order="4" />
       <window_info anchor="right" id="Capture Analysis" order="0" />
       <window_info anchor="bottom" id="Event Log" order="3" sideWeight="0.50159746" side_tool="true" visible="true" weight="0.31436568" />
-      <window_info anchor="right" id="Maven Projects" order="4" />
+      <window_info active="true" anchor="right" id="Maven Projects" order="12" visible="true" weight="0.07188498" />
       <window_info anchor="bottom" id="Database Changes" order="1" show_stripe_button="false" />
       <window_info anchor="bottom" id="Run" order="6" />
       <window_info anchor="bottom" id="Version Control" order="0" sideWeight="0.49946752" weight="0.32929105" />
       <window_info anchor="bottom" id="Terminal" order="2" sideWeight="0.49840257" visible="true" weight="0.31436568" />
       <window_info id="Capture Tool" order="2" />
       <window_info id="Designer" order="0" />
-      <window_info active="true" content_ui="combo" id="Project" order="5" visible="true" weight="0.25452608" />
-      <window_info anchor="right" id="Database" order="3" />
+      <window_info content_ui="combo" id="Project" order="5" visible="true" weight="0.25452608" />
+      <window_info anchor="right" id="Database" order="6" />
       <window_info id="Structure" order="6" side_tool="true" weight="0.25" />
-      <window_info anchor="right" id="Ant Build" order="7" weight="0.25" />
+      <window_info anchor="right" id="Ant Build" order="13" weight="0.25" />
       <window_info id="UI Designer" order="1" />
-      <window_info anchor="right" id="Theme Preview" order="2" />
+      <window_info anchor="right" id="Theme Preview" order="4" />
       <window_info anchor="bottom" id="Debug" order="7" weight="0.4" />
       <window_info id="Favorites" order="3" side_tool="true" />
-      <window_info anchor="right" id="Palette" order="5" />
+      <window_info anchor="right" id="Palette" order="10" />
       <window_info id="Designer" order="0" />
-      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="8" weight="0.25" />
-      <window_info anchor="right" id="Capture Analysis" order="0" />
+      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="15" weight="0.25" />
+      <window_info anchor="right" id="Capture Analysis" order="1" />
       <window_info anchor="bottom" id="Inspection" order="9" weight="0.4" />
-      <window_info anchor="right" id="Ant Build" order="7" weight="0.25" />
+      <window_info anchor="right" id="Ant Build" order="14" weight="0.25" />
       <window_info active="true" content_ui="combo" id="Project" order="5" visible="true" weight="0.25452608" />
       <window_info id="Structure" order="6" side_tool="true" weight="0.25" />
-      <window_info anchor="right" id="Commander" internal_type="SLIDING" order="6" type="SLIDING" weight="0.4" />
+      <window_info anchor="right" id="Commander" internal_type="SLIDING" order="11" type="SLIDING" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="10" />
       <window_info anchor="bottom" id="Database Changes" order="1" show_stripe_button="false" />
       <window_info anchor="bottom" id="Version Control" order="0" sideWeight="0.49946752" weight="0.32929105" />
@@ -391,15 +405,15 @@
       <window_info id="Capture Tool" order="2" />
       <window_info id="UI Designer" order="1" />
       <window_info anchor="bottom" id="Debug" order="7" weight="0.4" />
-      <window_info anchor="right" id="Theme Preview" order="2" />
-      <window_info anchor="right" id="Database" order="3" />
-      <window_info anchor="right" id="Palette&#9;" order="1" />
+      <window_info anchor="right" id="Theme Preview" order="5" />
+      <window_info anchor="right" id="Database" order="7" />
+      <window_info anchor="right" id="Palette&#9;" order="3" />
       <window_info anchor="bottom" id="Message" order="4" />
       <window_info anchor="bottom" id="Event Log" order="3" sideWeight="0.50159746" side_tool="true" visible="true" weight="0.31436568" />
       <window_info anchor="bottom" id="Cvs" order="8" weight="0.25" />
       <window_info anchor="bottom" id="Find" order="5" weight="0.2995122" />
       <window_info anchor="bottom" id="Terminal" order="2" sideWeight="0.49840257" visible="true" weight="0.31436568" />
-      <window_info anchor="right" id="Maven Projects" order="4" />
+      <window_info anchor="right" id="Maven Projects" order="8" />
       <window_info id="Favorites" order="3" side_tool="true" />
     </layout>
   </component>
@@ -411,7 +425,7 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <option name="time" value="2" />
+      <option name="time" value="4" />
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
@@ -738,40 +752,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/actionTypes/actionTypes.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="75">
-          <caret line="9" column="73" selection-start-line="9" selection-start-column="73" selection-end-line="9" selection-end-column="73" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/components/AutoAttackers.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="210">
-          <caret line="16" column="10" selection-start-line="16" selection-start-column="10" selection-end-line="16" selection-end-column="10" />
-          <folding>
-            <element signature="e#0#26#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/actions/actions.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="225">
-          <caret line="15" column="40" selection-start-line="15" selection-start-column="40" selection-end-line="15" selection-end-column="40" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/components/Hero.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="255">
-          <caret line="17" column="10" selection-start-line="17" selection-start-column="10" selection-end-line="17" selection-end-column="10" />
-          <folding>
-            <element signature="e#0#26#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/sagas/sagas.spec.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="150">
@@ -792,13 +772,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/reducer/reducer.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="205">
-          <caret line="151" column="25" selection-start-line="151" selection-start-column="21" selection-end-line="151" selection-end-column="25" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/components/Monster.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="195">
@@ -809,12 +782,62 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/container/App.js">
+    <entry file="file://$PROJECT_DIR$/src/components/AutoAttackers.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="240">
+          <caret line="16" column="10" selection-start-line="16" selection-start-column="10" selection-end-line="16" selection-end-column="10" />
+          <folding>
+            <element signature="e#0#26#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/actions/actions.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="225">
+          <caret line="15" column="40" selection-start-line="15" selection-start-column="40" selection-end-line="15" selection-end-column="40" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/actionTypes/actionTypes.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="135">
-          <caret line="13" column="5" selection-start-line="13" selection-start-column="5" selection-end-line="13" selection-end-column="5" />
+          <caret line="9" column="39" selection-start-line="9" selection-start-column="39" selection-end-line="9" selection-end-column="39" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/Hero.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="375">
+          <caret line="28" column="111" selection-start-line="28" selection-start-column="111" selection-end-line="28" selection-end-column="111" />
+          <folding>
+            <element signature="e#0#26#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/container/App.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="417">
+          <caret line="40" column="54" lean-forward="true" selection-start-line="40" selection-start-column="54" selection-end-line="40" selection-end-column="54" />
           <folding>
             <element signature="e#0#52#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/reducer/reducer.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="554">
+          <caret line="188" column="6" lean-forward="true" selection-start-line="188" selection-start-column="6" selection-end-line="188" selection-end-column="6" />
+          <folding>
+            <element signature="e#122#989#0" />
+            <element signature="e#1133#1293#0" />
+            <element signature="e#1297#1747#0" />
+            <element signature="e#1751#2844#0" />
+            <element signature="e#3126#3331#0" />
+            <element signature="e#3416#3929#0" />
+            <element signature="e#4508#4625#0" />
           </folding>
         </state>
       </provider>
