@@ -1,6 +1,12 @@
 import * as ActionTypes from '../actionTypes/actionTypes';
 const { createStore } = require('redux');
 
+// TODO funskjon for å oppgrader helter hver 100 lvl
+// TODO logge inne/registrere seg samt kunne lagre data
+// TODO forbedre scaling av liv, pris på helter, clickdamage
+// TODO funskjon/knapp for å kjøpe elemter type (mer bossTid, mindre bossLiv, mer %vis DPS på helter/lavere pris;
+
+
 const initalState = {
 
   monsterName: "Monster",
@@ -12,13 +18,13 @@ const initalState = {
   bossTimer: 0,
   isBoss: false,
 
-  heroName: "Hero",
+  heroName: '',
   heroClickDamage: 1,
   heroDPS: 0,
-  heroCash: 1000,
+  heroCash: 0,
   autoIncrease: true,
-
   clickUpgradePrice: 5,
+  isLoggedIn: false,
 
   heroes: [
     {
@@ -61,10 +67,10 @@ export default function allActions(state=initalState, action) {
   switch (action.type) {
 
   case  ActionTypes.CLICK_ATTACK_MONSTER: {
-        return {
-          ...state,
-          healthRemain: state.healthRemain - state.heroClickDamage
-        };
+    return {
+      ...state,
+      healthRemain: state.healthRemain - state.heroClickDamage
+    };
   }
 
   case ActionTypes.INCREASE_CLICK_DAMAGE: {
@@ -132,92 +138,93 @@ export default function allActions(state=initalState, action) {
 
   case ActionTypes.BOSS_FIGHT: {
     let time = (state.bossTimer - 0.1);
-      return {
-        ...state,
-        bossTimer: time,
-      };
-    }
+    return {
+      ...state,
+      bossTimer: time,
+    };
+  }
 
   case ActionTypes.PREV_LEVEL: {
     return{
-    ...state,
-    isBoss:false,
-    monsterLevel: state.monsterLevel - 1,
-    healthMax: newHealth - state.monsterLevel * 1.7,
-    healthRemain: newHealth,
-};
+      ...state,
+      isBoss:false,
+      monsterLevel: state.monsterLevel - 1,
+      healthMax: newHealth - state.monsterLevel * 1.7,
+      healthRemain: newHealth,
+    };
   }
 
   case ActionTypes.NEXT_LEVEL: {
     let bossLevel = state.monsterLevel%10;
     if(bossLevel === 9) {
       state.isBoss = true;
-    return{
-      ...state,
-      bossTimer: state.initTime,
-      bossLife: newHealth * 10,
-      healthMax: newHealth,
-      healthRemain: newHealth * 10,
-      monsterLevel: state.monsterLevel + 1,
-    };
-  } else {
-    state.isBoss = false;
       return{
+        ...state,
+        bossTimer: state.initTime,
+        healthMax: state.bossLife,
+        healthRemain: state.bossLife,
+        monsterLevel: state.monsterLevel + 1,
+      };
+    } else {
+      console.log("Bosslife: " + state.bossLife + " -- Added: " + state.healthMax + " -- Next boss life: " + (state.bossLife + state.healthMax));
+      state.isBoss = false;
+      return{
+        ...state,
+        healthMax: newHealth,
+        healthRemain: newHealth,
+        bossLife: state.bossLife + state.healthMax,
+        monsterLevel: state.monsterLevel + 1,
+      };
+    }
+  }
+
+  case ActionTypes.MORE_MONEY: {
+    let bossLevel = state.monsterLevel%10;
+    if(bossLevel === 0) {
+      const newBalance = Math.round(
+        state.heroCash + (state.bossLife * 0.1)
+      );
+      console.log("New balace: " + newBalance);
+      console.log("Gold gaiend: " + Math.round(state.bossLife * 0.1));
+      return{
+        ...state,
+        heroCash: newBalance,
+      };
+    } else {
+      const newBalance = Math.round(
+        state.heroCash + (state.healthMax * 0.1)
+      );
+      console.log("New balace: " + newBalance);
+      console.log("Gold gaiend: " + Math.round(state.healthMax * 0.1));
+      return {
+        ...state,
+        heroCash: newBalance
+      }
+    }
+  }
+
+  case ActionTypes.SAME_LEVEL: {
+    return {
       ...state,
       healthMax: newHealth,
       healthRemain: newHealth,
-      monsterLevel: state.monsterLevel + 1,
-  };
-}
-}
+    };
+  }
 
-case ActionTypes.MORE_MONEY: {
-  let bossLevel = state.monsterLevel%10;
-  if(bossLevel === 0) {
-    const newBalance = Math.round(
-      state.heroCash + (state.bossLife * 0.1)
-    );
-  console.log("New balace: " + newBalance);
-  console.log("Gold gaiend: " + Math.round(state.bossLife * 0.1));
-  return{
-    ...state,
-    heroCash: newBalance,
-  };
-} else {
-    const newBalance = Math.round(
-      state.heroCash + (state.healthMax * 0.1)
-    );
-    console.log("New balace: " + newBalance);
-    console.log("Gold gaiend: " + Math.round(state.healthMax * 0.1));
+  case ActionTypes.TOGGLE_AUTO_INCREASE: {
+    console.log("Status is : " + state.autoIncrease);
     return {
       ...state,
-      heroCash: newBalance
-    }
+      autoIncrease: !state.autoIncrease,
+    };
   }
-}
 
-case ActionTypes.SAME_LEVEL: {
-  return {
-    ...state,
-    healthMax: newHealth,
-    healthRemain: newHealth,
-  };
-}
-
-case ActionTypes.TOGGLE_AUTO_INCREASE: {
-  console.log("Status is : " + state.autoIncrease);
-  return {
-    ...state,
-    autoIncrease: !state.autoIncrease,
-  };
-}
-
-// FUNCTION NEXT LEVEL,
-// run on app.tick() function after health is 0
-
-// FUNCTION UPGRADE AUTO ATTACKER
-// should reset to the auto attackers stats,
-// but increase the % for dps increase
+  case ActionTypes.ADD_PLAYER: {
+    return {
+      heroName: action.name,
+      isLoggedIn: !state.isLoggedIn,
+    };
+  }
 
 
   default:

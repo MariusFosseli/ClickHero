@@ -1,41 +1,37 @@
 import React, { Component, PropTypes } from 'react';
+import { connect } from 'react-redux';
 
 import Monster from '../components/Monster';
 import Hero from '../components/Hero';
-import { connect } from 'react-redux';
 
 class App extends Component {
 
   bossFight() {
     if(this.props.isBoss === true) {
       if(this.props.bossTimer < 1) {
-    this.props.prevLevel();
-    this.props.toggleAutoIncrease();
-    }
+        this.props.prevLevel();
+        this.props.toggleAutoIncrease();
+      }
       this.props.bossFight();
-  }
-}
-
-asd() {
-  if(this.props.healthRemain < 1){
-    this.props.moreMoney();
-    if(this.props.autoIncrease === true) {
-      this.props.sameLevel();
-    } else {
-      this.props.nextLevel();
     }
   }
-}
+
+  asd() {
+    if(this.props.healthRemain < 1){
+      this.props.moreMoney();
+      if(this.props.autoIncrease === true) {
+        this.props.sameLevel();
+      } else {
+        this.props.nextLevel();
+      }
+    }
+  }
 
   tick(){
     this.bossFight();
     this.props.autoAttack();
     this.asd();
-}
-
-  // tick() {
-  //   this.props.autoAttack();
-  // }
+  }
 
   componentDidMount() {
     this.interval = setInterval(() => this.tick(), 100);
@@ -47,20 +43,6 @@ asd() {
   render() {
 
     const boss = this.props.isBoss;
-
-    // const AutoAttackerComponent = this.props.heroes.map((hero, index) => (
-    //   <AutoAttackers
-    //     key={index}
-    //     index={index}
-    //     autoName={hero.autoName}
-    //     autoPrice={hero.autoPrice}
-    //     autoDPS={hero.autoDPS}
-    //     timesBought={hero.timesBought}
-    //     buyAutoAttacker={this.props.buyAutoAttacker}
-    //     buyAutoAsync={this.props.buyAutoAsync}
-    //   />
-    // ));
-
 
     return (
       <div>
@@ -79,16 +61,15 @@ asd() {
         />
 
         <Monster
-        monsterName={this.props.monsterName}
-        healthMax={this.props.healthMax}
-        healthRemain={this.props.healthRemain}
-        monsterLevel={this.props.monsterLevel}
-        clickAttackMonster={this.props.clickAttackMonster}
-        attackAsync={this.props.attackAsync}
-        isBoss={boss}
-        bossTimer={this.props.bossTimer}
+          monsterName={this.props.monsterName}
+          healthMax={this.props.healthMax}
+          healthRemain={this.props.healthRemain}
+          monsterLevel={this.props.monsterLevel}
+          clickAttackMonster={this.props.clickAttackMonster}
+          attackAsync={this.props.attackAsync}
+          isBoss={boss}
+          bossTimer={this.props.bossTimer}
         />
-
       </div>
     );
   }
@@ -103,6 +84,7 @@ const mapStateToProps = (state) => {
     heroCash: state.heroCash,
     clickUpgradePrice: state.clickUpgradePrice,
     autoIncrease: state.autoIncrease,
+    isLoggedIn: state.isLoggedIn,
     //Monster
     monsterName: state.monsterName,
     healthMax: state.healthMax,
@@ -130,6 +112,7 @@ const mapDispatchToProps = (dispatch) => {
     moreMoney: () => dispatch({type: "MORE_MONEY"}),
     toggleAutoIncrease: () => dispatch({type: "TOGGLE_AUTO_INCREASE"}),
     sameLevel: () => dispatch({type: "SAME_LEVEL"}),
+    addPlayer: (name) => dispatch({type: "ADD_PLAYER", heroName: name}),
   }
 };
 

@@ -23,32 +23,32 @@ test('attackAsync click test', (assert) => {
   assert.deepEqual(
     gen.next(),
     { done: true, value: undefined },
-  console.log(gen.value),
+    console.log(gen.value),
   );
 
   assert.end()
 });
 
-  test('buyClickAsync test', (assert) => {
-    const gen = SF.buyClickAsync();
+test('buyClickAsync test', (assert) => {
+  const gen = SF.buyClickAsync();
 
-    assert.deepEqual(
-      gen.next().value,
-      call(delay, 3000),
+  assert.deepEqual(
+    gen.next().value,
+    call(delay, 3000),
     console.log(gen),
-    );
+  );
 
-    assert.deepEqual(
-      gen.next().value,
-      put({type: 'INCREASE_CLICK_DAMAGE'}),
+  assert.deepEqual(
+    gen.next().value,
+    put({type: 'INCREASE_CLICK_DAMAGE'}),
     console.log(gen),
-    );
+  );
 
-    assert.deepEqual(
-      gen.next(),
-      { done: true, value: undefined },
-      console.log(gen),
-    );
+  assert.deepEqual(
+    gen.next(),
+    { done: true, value: undefined },
+    console.log(gen),
+  );
 
   assert.end()
 });

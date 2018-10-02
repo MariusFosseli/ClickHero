@@ -23,4 +23,11 @@ export const autoAttack = () => {
   };
 };
 
+export const addPlayer = name => {
+  return {
+    type: PlayerActionTypes.ADD_PLAYER,
+    name
+  };
+};
+
 
