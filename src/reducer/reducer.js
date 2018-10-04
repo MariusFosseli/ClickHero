@@ -21,7 +21,7 @@ const initalState = {
   heroName: '',
   heroClickDamage: 1,
   heroDPS: 0,
-  heroCash: 0,
+  heroCash: 10000,
   autoIncrease: true,
   clickUpgradePrice: 5,
   isLoggedIn: false,

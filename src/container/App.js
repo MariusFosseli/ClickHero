@@ -40,6 +40,7 @@ class App extends Component {
     clearInterval(this.interval);
   }
 
+
   render() {
 
     const boss = this.props.isBoss;

@@ -1,4 +1,7 @@
 https://redux.js.org/recipes/structuringreducers/refactoringreducersexample
+https://github.com/rt2zz/redux-persist
+https://github.com/codereviewvideos/react-login-registration
+https://pirple.thinkific.com/courses/the-nodejs-master-class
 
 This project was bootstrapped with [Create React App](https://github.com/facebookincubator/create-react-app).
 
