@@ -19,7 +19,7 @@ class App extends Component {
   asd() {
     if(this.props.healthRemain < 1){
       this.props.moreMoney();
-      if(this.props.autoIncrease === true) {
+      if(this.props.autoIncrease === false) {
         this.props.sameLevel();
       } else {
         this.props.nextLevel();
@@ -70,6 +70,7 @@ class App extends Component {
           attackAsync={this.props.attackAsync}
           isBoss={boss}
           bossTimer={this.props.bossTimer}
+          bossLife={this.props.bossLife}
         />
       </div>
     );
@@ -93,6 +94,7 @@ const mapStateToProps = (state) => {
     monsterLevel: state.monsterLevel,
     bossTimer: state.bossTimer,
     isBoss: state.isBoss,
+    bossLife: state.bossLife,
     //Auto Attackers
     heroes: state.heroes,
   }

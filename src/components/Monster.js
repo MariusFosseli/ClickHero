@@ -13,7 +13,7 @@ const Monster = props => {
       <div>
         {props.isBoss ? <h5>{props.bossTimer}</h5> : <h5> </h5>}
         <h3>Name: {props.monsterName}</h3>
-        <p>Health: {props.healthMax}</p>
+        {props.isBoss ? <p>Health: {props.bossLife}</p> : <p>Health: {props.healthMax}</p>}
         <p>Health remaining: {props.healthRemain}</p>
         <p>Level: {props.monsterLevel}</p>
       </div>
