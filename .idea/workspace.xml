@@ -2,9 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="88efa251-4a9d-48a6-bd4c-e4e605a575a3" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/src/components/Monster.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Monster.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/container/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/container/App.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/index.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/reducer/reducer.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/reducer/reducer.js" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -31,8 +30,8 @@
       <file leaf-file-name="App.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/container/App.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="180">
-              <caret line="36" column="56" lean-forward="true" selection-start-line="36" selection-start-column="56" selection-end-line="36" selection-end-column="56" />
+            <state relative-caret-position="150">
+              <caret line="10" column="33" selection-start-line="10" selection-start-column="33" selection-end-line="10" selection-end-column="33" />
               <folding>
                 <element signature="e#0#52#0" expanded="true" />
               </folding>
@@ -93,17 +92,17 @@
       <file leaf-file-name="reducer.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/reducer/reducer.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="330">
-              <caret line="22" column="17" selection-start-line="22" selection-start-column="17" selection-end-line="22" selection-end-column="17" />
+            <state relative-caret-position="315">
+              <caret line="21" column="21" lean-forward="true" selection-start-line="21" selection-start-column="21" selection-end-line="21" selection-end-column="21" />
               <folding>
                 <element signature="e#704#1287#0" />
                 <element signature="e#1460#1604#0" />
                 <element signature="e#1608#2058#0" />
-                <element signature="e#2060#3355#0" />
-                <element signature="e#3359#3543#0" />
-                <element signature="e#3314#3447#0" />
-                <element signature="e#3451#3670#0" />
-                <element signature="e#5093#5222#0" />
+                <element signature="e#3358#3542#0" />
+                <element signature="e#3546#3679#0" />
+                <element signature="e#3682#3944#0" />
+                <element signature="e#5168#5928#0" />
+                <element signature="e#5932#6073#0" />
                 <element signature="e#5226#5401#0" />
                 <element signature="e#5405#5525#0" />
               </folding>
@@ -322,7 +321,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="131888000" />
+    <option name="totallyTimeSpent" value="142909000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-1" y="24" width="1922" height="1153" extended-state="6" />
@@ -334,14 +333,14 @@
       <window_info id="Image Layers" order="4" />
       <window_info anchor="right" id="Capture Analysis" order="0" />
       <window_info anchor="bottom" id="Event Log" order="3" sideWeight="0.50106496" side_tool="true" visible="true" weight="0.34472656" />
-      <window_info anchor="right" id="Maven Projects" order="12" visible="true" weight="0.07188498" />
+      <window_info active="true" anchor="right" id="Maven Projects" order="12" visible="true" weight="0.07188498" />
       <window_info anchor="bottom" id="Database Changes" order="1" show_stripe_button="false" />
       <window_info anchor="bottom" id="Run" order="6" />
       <window_info anchor="bottom" id="Version Control" order="0" sideWeight="0.49893504" visible="true" weight="0.34472656" />
       <window_info anchor="bottom" id="Terminal" order="2" sideWeight="0.49840257" weight="0.32910156" />
       <window_info id="Capture Tool" order="2" />
       <window_info id="Designer" order="0" />
-      <window_info active="true" content_ui="combo" id="Project" order="5" visible="true" weight="0.25452608" />
+      <window_info content_ui="combo" id="Project" order="5" visible="true" weight="0.25452608" />
       <window_info anchor="right" id="Database" order="6" />
       <window_info anchor="bottom" id="Find" order="5" sideWeight="0.49946752" weight="0.28544775" />
       <window_info id="Structure" order="6" side_tool="true" weight="0.25" />
@@ -386,7 +385,7 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <option name="time" value="10" />
+      <option name="time" value="12" />
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
@@ -781,8 +780,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/container/App.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="180">
-          <caret line="36" column="56" lean-forward="true" selection-start-line="36" selection-start-column="56" selection-end-line="36" selection-end-column="56" />
+        <state relative-caret-position="150">
+          <caret line="10" column="33" selection-start-line="10" selection-start-column="33" selection-end-line="10" selection-end-column="33" />
           <folding>
             <element signature="e#0#52#0" expanded="true" />
           </folding>
@@ -791,17 +790,17 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/reducer/reducer.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="330">
-          <caret line="22" column="17" selection-start-line="22" selection-start-column="17" selection-end-line="22" selection-end-column="17" />
+        <state relative-caret-position="315">
+          <caret line="21" column="21" lean-forward="true" selection-start-line="21" selection-start-column="21" selection-end-line="21" selection-end-column="21" />
           <folding>
             <element signature="e#704#1287#0" />
             <element signature="e#1460#1604#0" />
             <element signature="e#1608#2058#0" />
-            <element signature="e#2060#3355#0" />
-            <element signature="e#3359#3543#0" />
-            <element signature="e#3314#3447#0" />
-            <element signature="e#3451#3670#0" />
-            <element signature="e#5093#5222#0" />
+            <element signature="e#3358#3542#0" />
+            <element signature="e#3546#3679#0" />
+            <element signature="e#3682#3944#0" />
+            <element signature="e#5168#5928#0" />
+            <element signature="e#5932#6073#0" />
             <element signature="e#5226#5401#0" />
             <element signature="e#5405#5525#0" />
           </folding>

@@ -8,7 +8,7 @@ class App extends Component {
 
   bossFight() {
     if(this.props.isBoss === true) {
-      if(this.props.bossTimer < 1) {
+      if(this.props.bossTimer < 0) {
         this.props.prevLevel();
         this.props.toggleAutoIncrease();
       }
@@ -18,11 +18,13 @@ class App extends Component {
 
   asd() {
     if(this.props.healthRemain < 1){
+      console.log("New level: ---------------------------------------------------------------")
       this.props.moreMoney();
       if(this.props.autoIncrease === false) {
         this.props.sameLevel();
       } else {
         this.props.nextLevel();
+        console.log("Level " + (this.props.monsterLevel - 1) + " completed!");
       }
     }
   }

@@ -20,7 +20,7 @@ const initalState = {
 
   heroName: '',
   heroClickDamage: 1,
-  heroDPS: 1000000,
+  heroDPS: 10,
   heroCash: 0,
   autoIncrease: true,
   clickUpgradePrice: 5,
@@ -63,7 +63,10 @@ const initalState = {
 };
 
 export default function allActions(state=initalState, action) {
-  const newHealth = Math.round(Math.pow(state.monsterLevel, 2.3));
+  let newHealth = Math.round(Math.pow(state.monsterLevel, 2.3) - (state.monsterLevel * 5));
+  if(newHealth < 10) {
+    newHealth = 10;
+  }
   switch (action.type) {
 
   case  ActionTypes.CLICK_ATTACK_MONSTER: {
@@ -97,14 +100,15 @@ export default function allActions(state=initalState, action) {
         state.heroDPS = state.heroDPS + hero.autoDPS;
         state.heroCash = state.heroCash - hero.autoPrice;
 
-        const newPrice = Math.round((hero.statePrice * 0.5)) * hero.timesBought;
-        const newNextDPS = Math.round((hero.stateDPS * 0.25) + (hero.timesBought * 0.25));
+        const newPrice = Math.round(hero.statePrice * Math.pow(hero.timesBought, 1.1));
+        const newNextDPS = Math.round((hero.stateDPS * 0.3) + hero.timesBought);
 
         if(hero.timesBought % 10 === 9) {
           return {
             ...hero,
             ...state,
             timesBought: hero.timesBought + 1,
+            heroName: hero.heroName,
             autoDPS: (hero.autoDPS * 2),
             autoPrice: hero.autoPrice + newPrice,
             statePrice: hero.statePrice,
@@ -114,6 +118,7 @@ export default function allActions(state=initalState, action) {
           return {
             ...state,
             timesBought: hero.timesBought + 1,
+            heroName: hero.heroName,
             autoDPS: hero.autoDPS + newNextDPS,
             autoPrice: hero.autoPrice + newPrice,
             statePrice: hero.statePrice,
@@ -149,47 +154,49 @@ export default function allActions(state=initalState, action) {
   }
 
   case ActionTypes.PREV_LEVEL: {
+    console.log("state.healthMax:   " + state.healthMax);
     return{
       ...state,
       isBoss:false,
       monsterLevel: state.monsterLevel - 1,
-      healthMax: newHealth - state.monsterLevel * 1.7,
-      healthRemain: newHealth,
+      healthMax: state.healthMax,
+      healthRemain: state.healthMax,
     };
   }
 
   case ActionTypes.NEXT_LEVEL: {
-    console.log("Level " + state.monsterLevel + " completed!");
     let bossLevel = state.monsterLevel%10;
+    let bossHealth = (state.healthMax * 2);
     if(bossLevel === 9) {
+
+      console.log("monster life: " + state.healthMax + "   --    boss life: " + (state.healthMax * 2) + "   --   at level: " + state.monsterLevel);
       state.isBoss = true;
       return{
         ...state,
         bossTimer: state.initTime,
-        bossLife: state.healthMax * 2,
-        healthRemain: state.bossLife,
+        bossLife: bossHealth,
+        healthRemain: bossHealth,
         monsterLevel: state.monsterLevel + 1,
       };
     } else if (bossLevel === 0) {
       state.bossLife = 0;
-      console.log("Bosslife: " + state.bossLife + " -- Added: " + state.healthMax + " -- Next boss life: " + (state.bossLife + state.healthMax));
+      const afterBoss = Math.round(newHealth * 2);
+      console.log("newHealth : " + newHealth  + " -- newHealth * 2 : " + afterBoss);
       state.isBoss = false;
       return{
         ...state,
         healthMax: state.healthMax + newHealth,
         healthRemain: state.healthMax + newHealth,
-        bossLife: state.bossLife + newHealth,
         monsterLevel: state.monsterLevel + 1,
       };
     }
     else {
-      console.log("Bosslife: " + state.bossLife + " -- Added: " + state.healthMax + " -- Next boss life: " + (state.bossLife + state.healthMax));
+      console.log("state.healthMax:   " + state.healthMax + "   --   newHealth" + newHealth);
       state.isBoss = false;
       return{
         ...state,
         healthMax: state.healthMax + newHealth,
         healthRemain: state.healthMax + newHealth,
-        bossLife: state.bossLife + state.healthMax,
         monsterLevel: state.monsterLevel + 1,
       };
     }
@@ -202,7 +209,7 @@ export default function allActions(state=initalState, action) {
         state.heroCash + (state.bossLife * 0.1)
       );
       console.log("New balace: " + newBalance);
-      console.log("Gold gaiend: " + Math.round(state.bossLife * 0.1));
+      console.log("Gold gaiend from boss: " + Math.round(state.bossLife * 0.1));
       return{
         ...state,
         heroCash: newBalance,
@@ -212,7 +219,7 @@ export default function allActions(state=initalState, action) {
         state.heroCash + (state.healthMax * 0.01) + state.monsterLevel
       );
       console.log("New balace: " + newBalance);
-      console.log("Gold gaiend: " + Math.round((state.healthMax * 0.01) + state.monsterLevel));
+      console.log("Gold gaiend from monster: " + Math.round((state.healthMax * 0.01) + state.monsterLevel));
       return {
         ...state,
         heroCash: newBalance
@@ -223,8 +230,8 @@ export default function allActions(state=initalState, action) {
   case ActionTypes.SAME_LEVEL: {
     return {
       ...state,
-      healthMax: newHealth,
-      healthRemain: newHealth,
+      healthMax: state.healthMax,
+      healthRemain: state.healthMax,
     };
   }
 
