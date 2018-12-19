@@ -7,7 +7,6 @@ import { Provider } from 'react-redux';
 import { createStore, applyMiddleware, combineReducers } from 'redux';
 import createSagaMiddleware from 'redux-saga';
 import reducer from './reducer/reducer';
-import rootSagas from './sagas/Sagas';
 
 const rootReducer = combineReducers({
     allActions: reducer
@@ -19,8 +18,6 @@ const store = createStore(
   reducer,
   applyMiddleware(sagaMiddleware)
 );
-
-sagaMiddleware.run(rootSagas);
 
 ReactDOM.render(<Provider store={store}><App /></Provider>, document.getElementById('root'));
 registerServiceWorker();

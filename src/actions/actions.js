@@ -23,10 +23,21 @@ export const autoAttack = () => {
   };
 };
 
-export const addPlayer = name => {
+export const monsterAttack = () => {
   return {
-    type: PlayerActionTypes.ADD_PLAYER,
-    name
+    type: ActionTypes.MONSTER_ATTACK,
+  };
+};
+
+export const steffenAbility = () => {
+  return {
+    type: ActionTypes.STEFFEN_ABILITY,
+  };
+};
+
+export const emilAbility = () => {
+  return {
+    type: ActionTypes.EMIL_ABILITY,
   };
 };
 

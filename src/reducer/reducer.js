@@ -1,3 +1,4 @@
+import { combineReducers } from "redux";
 import * as ActionTypes from '../actionTypes/actionTypes';
 const { createStore } = require('redux');
 
@@ -9,56 +10,41 @@ const { createStore } = require('redux');
 
 const initalState = {
 
-  monsterName: "Monster",
-  healthMax: 10,
-  healthRemain: 10,
-  bossLife: 10,
+  monsterMaxHealth: 10,
+  monsterRemainingHealth: 10,
   monsterLevel: 1,
-  initTime: 30,
-  bossTimer: 0,
   isBoss: false,
+  monsterDamage: 1,
 
-  heroName: '',
   heroClickDamage: 1,
-  heroDPS: 10,
-  heroCash: 0,
+  heroDPS: 2,
+  heroCash: 1000,
   autoIncrease: true,
   clickUpgradePrice: 5,
   isLoggedIn: false,
+  heroMaxHealth: 100,
+  heroRemainingHealth: 100,
+  heroDefence: 0,
 
   heroes: [
     {
-      autoName: "Benjamin",
+      autoName: "Steffen",
       autoPrice: 10,
       statePrice: 10,
       autoDPS: 1,
       stateDPS: 1,
       timesBought: 1,
+      health: 1,
     },
     {
-      autoName: "Torleif",
+      autoName: "Emil",
       autoPrice: 50,
       statePrice: 50,
       autoDPS: 10,
       stateDPS: 10,
       timesBought: 1,
+      defence: 3,
     },
-    {
-      autoName: "Conrad",
-      autoPrice: 150,
-      statePrice: 150,
-      autoDPS: 30,
-      stateDPS: 30,
-      timesBought: 1,
-    },
-    {
-      autoName: "Harald",
-      autoPrice: 750,
-      statePrice: 750,
-      autoDPS: 125,
-      stateDPS: 125,
-      timesBought: 1,
-    }
   ]
 };
 
@@ -69,10 +55,41 @@ export default function allActions(state=initalState, action) {
   }
   switch (action.type) {
 
+  case  ActionTypes.BUY_AUTO_ATTACKER: {
+    const updateHeroesList = state.heroes.map((hero, index) => {
+      if ((index === action.index) && state.heroCash >= hero.autoPrice) {
+        console.log((hero.autoName) + " bought");
+        state.heroDPS = state.heroDPS + hero.autoDPS;
+        state.heroCash = state.heroCash - hero.autoPrice;
+        state.heroDefence = state.heroDefence + hero.defence;
+
+        const newPrice = Math.round(hero.statePrice * Math.pow(hero.timesBought, 1.1));
+        const newNextDPS = Math.round((hero.stateDPS * 0.3) + hero.timesBought);
+          return {
+            ...state,
+            timesBought: hero.timesBought + 1,
+            heroName: hero.heroName,
+            autoDPS: hero.autoDPS + newNextDPS,
+            autoPrice: hero.autoPrice + newPrice,
+            statePrice: hero.statePrice,
+            stateDPS: hero.stateDPS,
+            defence: hero.defence,
+          };
+        }
+      console.log("Not enough cash");
+      return hero;
+    });
+
+    return {
+      ...state,
+      heroes: updateHeroesList
+    };
+  }
+
   case  ActionTypes.CLICK_ATTACK_MONSTER: {
     return {
       ...state,
-      healthRemain: state.healthRemain - state.heroClickDamage
+      monsterRemainingHealth: state.monsterRemainingHealth - state.heroClickDamage
     };
   }
 
@@ -93,113 +110,46 @@ export default function allActions(state=initalState, action) {
     }
   }
 
-  case  ActionTypes.BUY_AUTO_ATTACKER: {
-    const updateHeroesList = state.heroes.map((hero, index) => {
-      if ((index === action.index) && state.heroCash >= hero.autoPrice) {
-        console.log((hero.autoName) + " bought");
-        state.heroDPS = state.heroDPS + hero.autoDPS;
-        state.heroCash = state.heroCash - hero.autoPrice;
-
-        const newPrice = Math.round(hero.statePrice * Math.pow(hero.timesBought, 1.1));
-        const newNextDPS = Math.round((hero.stateDPS * 0.3) + hero.timesBought);
-
-        if(hero.timesBought % 10 === 9) {
-          return {
-            ...hero,
-            ...state,
-            timesBought: hero.timesBought + 1,
-            heroName: hero.heroName,
-            autoDPS: (hero.autoDPS * 2),
-            autoPrice: hero.autoPrice + newPrice,
-            statePrice: hero.statePrice,
-            stateDPS: hero.stateDPS,
-          };
-        } else {
-          return {
-            ...state,
-            timesBought: hero.timesBought + 1,
-            heroName: hero.heroName,
-            autoDPS: hero.autoDPS + newNextDPS,
-            autoPrice: hero.autoPrice + newPrice,
-            statePrice: hero.statePrice,
-            stateDPS: hero.stateDPS,
-          };
-        }
-      }
-      console.log("Not enough cash");
-      return hero;
-    });
-
-    return {
-      ...state,
-      heroes: updateHeroesList
-    };
-  }
 
   case ActionTypes.AUTO_ATTACK: {
     let damage = state.heroDPS / 10;
-    let attack = (state.healthRemain - damage);
+    let attack = (state.monsterRemainingHealth - damage);
     return {
       ...state,
-      healthRemain: attack,
+      monsterRemainingHealth: attack,
     };
   }
 
-  case ActionTypes.BOSS_FIGHT: {
-    let time = (state.bossTimer - 0.1);
+  case ActionTypes.MONSTER_ATTACK: {
+    let damage = state.monsterDamage / 10;
+    let attack = (state.heroRemainingHealth - damage);
     return {
       ...state,
-      bossTimer: time,
+      heroRemainingHealth: attack,
     };
   }
 
   case ActionTypes.PREV_LEVEL: {
-    console.log("state.healthMax:   " + state.healthMax);
+    console.log("state.monsterMaxHealth:   " + state.monsterMaxHealth);
     return{
       ...state,
       isBoss:false,
       monsterLevel: state.monsterLevel - 1,
-      healthMax: state.healthMax,
-      healthRemain: state.healthMax,
+      monsterMaxHealth: state.monsterMaxHealth,
+      monsterRemainingHealth: state.monsterMaxHealth,
     };
   }
 
   case ActionTypes.NEXT_LEVEL: {
-    let bossLevel = state.monsterLevel%10;
-    let bossHealth = (state.healthMax * 2);
-    if(bossLevel === 9) {
+    console.log("state.monsterMaxHealth:   " + state.monsterMaxHealth + "   --   newHealth" + newHealth);
 
-      console.log("monster life: " + state.healthMax + "   --    boss life: " + (state.healthMax * 2) + "   --   at level: " + state.monsterLevel);
-      state.isBoss = true;
       return{
         ...state,
-        bossTimer: state.initTime,
-        bossLife: bossHealth,
-        healthRemain: bossHealth,
+        monsterMaxHealth: state.monsterMaxHealth + newHealth,
+        monsterRemainingHealth: state.monsterMaxHealth + newHealth,
         monsterLevel: state.monsterLevel + 1,
+        heroRemainingHealth: state.heroRemainingHealth + Math.round(state.monsterMaxHealth * 0.2),
       };
-    } else if (bossLevel === 0) {
-      state.bossLife = 0;
-      const afterBoss = Math.round(newHealth * 2);
-      console.log("newHealth : " + newHealth  + " -- newHealth * 2 : " + afterBoss);
-      state.isBoss = false;
-      return{
-        ...state,
-        healthMax: state.healthMax + newHealth,
-        healthRemain: state.healthMax + newHealth,
-        monsterLevel: state.monsterLevel + 1,
-      };
-    }
-    else {
-      console.log("state.healthMax:   " + state.healthMax + "   --   newHealth" + newHealth);
-      state.isBoss = false;
-      return{
-        ...state,
-        healthMax: state.healthMax + newHealth,
-        healthRemain: state.healthMax + newHealth,
-        monsterLevel: state.monsterLevel + 1,
-      };
-    }
   }
 
   case ActionTypes.MORE_MONEY: {
@@ -216,10 +166,10 @@ export default function allActions(state=initalState, action) {
       };
     } else {
       const newBalance = Math.round(
-        state.heroCash + (state.healthMax * 0.01) + state.monsterLevel
+        state.heroCash + (state.monsterMaxHealth * 0.01) + state.monsterLevel
       );
       console.log("New balace: " + newBalance);
-      console.log("Gold gaiend from monster: " + Math.round((state.healthMax * 0.01) + state.monsterLevel));
+      console.log("Gold gaiend from monster: " + Math.round((state.monsterMaxHealth * 0.01) + state.monsterLevel));
       return {
         ...state,
         heroCash: newBalance
@@ -230,8 +180,8 @@ export default function allActions(state=initalState, action) {
   case ActionTypes.SAME_LEVEL: {
     return {
       ...state,
-      healthMax: state.healthMax,
-      healthRemain: state.healthMax,
+      monsterMaxHealth: state.monsterMaxHealth,
+      monsterRemainingHealth: state.monsterMaxHealth,
     };
   }
 
@@ -243,11 +193,12 @@ export default function allActions(state=initalState, action) {
     };
   }
 
-  case ActionTypes.ADD_PLAYER: {
-    return {
-      heroName: action.name,
-      isLoggedIn: !state.isLoggedIn,
-    };
+  case ActionTypes.STEFFEN_ABILITY: {
+    const { steffen } = state;
+  }
+
+  case ActionTypes.EMIL_ABILITY: {
+
   }
 
 
@@ -258,5 +209,6 @@ export default function allActions(state=initalState, action) {
 
 // export default combineReducers({
 //     allActions,
+//     aristocats
 //   }
-// )
+// );

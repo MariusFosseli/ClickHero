@@ -7,28 +7,26 @@ const Monster = props => {
   return(
     <div className={"Monster_stats"}>
       <div className={"Monster_img"}
-        onClick={ () => props.clickAttackMonster(props.healthRemain - props.heroClickDamage)}>
-
+        onClick={ () => props.clickAttackMonster(props.monsterRemainingHealth - props.heroClickDamage)}>
       </div>
       <div>
-        {props.isBoss ? <h5>{props.bossTimer}</h5> : <h5> </h5>}
-        <h3>Name: {props.monsterName}</h3>
-        {props.isBoss ? <p>Health: {props.bossLife}</p> : <p>Health: {props.healthMax}</p>}
-        <p>Health remaining: {props.healthRemain}</p>
+        <h3>Name: Monster</h3>
+        <p>Health: {props.monsterMaxHealth}</p>
+        <p>Health remaining: {props.monsterRemainingHealth}</p>
         <p>Level: {props.monsterLevel}</p>
+        <p>Damage: {props.monsterDamage}</p>
       </div>
-      <button onClick={ () => props.attackAsync()}>Attack after 1 second</button>
     </div>
   )
 };
 
 Monster.propTypes = {
-  monsterName: PropTypes.string.isRequired,
-  healthMax: PropTypes.number.isRequired,
-  healthRemain: PropTypes.number.isRequired,
+  monsterMaxHealth: PropTypes.number.isRequired,
+  monsterRemainingHealth: PropTypes.number.isRequired,
   monsterLevel: PropTypes.number.isRequired,
   clickAttackMonster: PropTypes.func.isRequired,
   isBoss: PropTypes.bool.isRequired,
+  monsterDamage: PropTypes.number.isRequired,
 };
 
 export default Monster;

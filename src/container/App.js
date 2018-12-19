@@ -17,8 +17,8 @@ class App extends Component {
   }
 
   asd() {
-    if(this.props.healthRemain < 1){
-      console.log("New level: ---------------------------------------------------------------")
+    if(this.props.monsterRemainingHealth < 1){
+      console.log("New level: ---------------------------------------------------------------");
       this.props.moreMoney();
       if(this.props.autoIncrease === false) {
         this.props.sameLevel();
@@ -32,6 +32,7 @@ class App extends Component {
   tick(){
     this.bossFight();
     this.props.autoAttack();
+    this.props.monsterAttack();
     this.asd();
   }
 
@@ -52,11 +53,12 @@ class App extends Component {
         <Hero
           heroName={this.props.heroName}
           heroClickDamage={this.props.heroClickDamage}
+          heroRemainingHealth={this.props.heroRemainingHealth}
           heroDPS={this.props.heroDPS}
+          heroDefence={this.props.heroDefence}
           heroCash={this.props.heroCash}
           increaseClickDamage={this.props.increaseClickDamage}
           clickUpgradePrice={this.props.clickUpgradePrice}
-          buyClickAsync={this.props.buyClickAsync}
           buyAutoAttacker={this.props.buyAutoAttacker}
           heroes={this.props.heroes}
           toggleAutoIncrease={this.props.toggleAutoIncrease}
@@ -64,15 +66,14 @@ class App extends Component {
         />
 
         <Monster
-          monsterName={this.props.monsterName}
-          healthMax={this.props.healthMax}
-          healthRemain={this.props.healthRemain}
+          monsterMaxHealth={this.props.monsterMaxHealth}
+          monsterRemainingHealth={this.props.monsterRemainingHealth}
           monsterLevel={this.props.monsterLevel}
           clickAttackMonster={this.props.clickAttackMonster}
-          attackAsync={this.props.attackAsync}
           isBoss={boss}
           bossTimer={this.props.bossTimer}
           bossLife={this.props.bossLife}
+          monsterDamage={this.props.monsterDamage}
         />
       </div>
     );
@@ -82,21 +83,21 @@ class App extends Component {
 const mapStateToProps = (state) => {
   return {
     //Hero
-    heroName: state.heroName,
     heroClickDamage: state.heroClickDamage,
+    heroRemainingHealth: state.heroRemainingHealth,
     heroDPS: state.heroDPS,
     heroCash: state.heroCash,
+    heroDefence: state.heroDefence,
     clickUpgradePrice: state.clickUpgradePrice,
     autoIncrease: state.autoIncrease,
     isLoggedIn: state.isLoggedIn,
     //Monster
-    monsterName: state.monsterName,
-    healthMax: state.healthMax,
-    healthRemain: state.healthRemain,
+    monsterMaxHealth: state.monsterMaxHealth,
+    monsterRemainingHealth: state.monsterRemainingHealth,
     monsterLevel: state.monsterLevel,
-    bossTimer: state.bossTimer,
     isBoss: state.isBoss,
     bossLife: state.bossLife,
+    monsterDamage: state.monsterDamage,
     //Auto Attackers
     heroes: state.heroes,
   }
@@ -108,16 +109,13 @@ const mapDispatchToProps = (dispatch) => {
     increaseClickDamage: () => dispatch({type: "INCREASE_CLICK_DAMAGE"}),
     buyAutoAttacker: (index) => dispatch({type: "BUY_AUTO_ATTACKER", index: index}),
     autoAttack: () => dispatch({type: "AUTO_ATTACK"}),
+    monsterAttack: () => dispatch({type: "MONSTER_ATTACK"}),
     nextLevel: () => dispatch({type: "NEXT_LEVEL"}),
-    attackAsync: () => dispatch({type: "ATTACK_ASYNC"}),
-    buyAutoAsync: (index) => dispatch({type: "BUY_AUTO_ASYNC", index: index}),
-    buyClickAsync: () => dispatch({type: "INCREASE_CLICK_DAMAGE_ASYNC"}),
     bossFight: () => dispatch({type: "BOSS_FIGHT"}),
     prevLevel: () => dispatch({type: "PREV_LEVEL"}),
     moreMoney: () => dispatch({type: "MORE_MONEY"}),
     toggleAutoIncrease: () => dispatch({type: "TOGGLE_AUTO_INCREASE"}),
     sameLevel: () => dispatch({type: "SAME_LEVEL"}),
-    addPlayer: (name) => dispatch({type: "ADD_PLAYER", heroName: name}),
   }
 };
 

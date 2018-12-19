@@ -11,8 +11,6 @@ const AutoAttackers = (props) => {
         <h4>{props.autoName} level {props.timesBought}</h4>
         <button onClick={ () => props.buyAutoAttacker(props.index) }>BUY</button>
         <p>DPS: {props.autoDPS} - price: {props.autoPrice}</p>
-
-        <button onClick={ () => props.buyAutoAsync()}>Buy after 5 seconds</button>
       </div>
     </div>
   );
