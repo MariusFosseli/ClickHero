@@ -10,7 +10,7 @@ const Hero = props => {
       index={index}
       autoName={hero.autoName}
       autoPrice={hero.autoPrice}
-      autoDPS={hero.autoDPS}
+      attack={hero.attack}
       timesBought={hero.timesBought}
       buyAutoAttacker={props.buyAutoAttacker}
     />

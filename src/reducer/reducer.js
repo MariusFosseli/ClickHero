@@ -6,6 +6,7 @@ const { createStore } = require('redux');
 // TODO logge inne/registrere seg samt kunne lagre data
 // TODO forbedre scaling av liv, pris på helter, clickdamage
 // TODO funskjon/knapp for å kjøpe elemter type (mer bossTid, mindre bossLiv, mer %vis DPS på helter/lavere pris;
+//
 
 
 const initalState = {
@@ -17,33 +18,37 @@ const initalState = {
   monsterDamage: 1,
 
   heroClickDamage: 1,
-  heroDPS: 2,
   heroCash: 1000,
   autoIncrease: true,
   clickUpgradePrice: 5,
-  isLoggedIn: false,
-  heroMaxHealth: 100,
   heroRemainingHealth: 100,
-  heroDefence: 0,
+  heroMaxHealth: 100, //Hvor mye liv helten har
+  heroDefence: 0, //prosent av skaden til monstre som forsvinner
+  heroDPS: 0, //hvor mye skade auto-attacks gjør per sekund
+  heroGreed: 0, //prosent av hvor mye av totalkostnaden på auto-attackers som forsvinner
+  heroPatience: 0, //prosent av hvor mye tid av "cooldown" på angrep til auto-attackers som forsvinner
 
   heroes: [
     {
       autoName: "Steffen",
       autoPrice: 10,
-      statePrice: 10,
-      autoDPS: 1,
-      stateDPS: 1,
       timesBought: 1,
+      attack: 1,
       health: 1,
+      greed: 1,
+      defence: 0,
+      patience: 0,
+
     },
     {
       autoName: "Emil",
       autoPrice: 50,
-      statePrice: 50,
-      autoDPS: 10,
-      stateDPS: 10,
       timesBought: 1,
-      defence: 3,
+      attack: 5,
+      defence: 0.2,
+      patience: 1,
+      health: 0,
+      greed: 0,
     },
   ]
 };
@@ -58,25 +63,28 @@ export default function allActions(state=initalState, action) {
   case  ActionTypes.BUY_AUTO_ATTACKER: {
     const updateHeroesList = state.heroes.map((hero, index) => {
       if ((index === action.index) && state.heroCash >= hero.autoPrice) {
-        console.log((hero.autoName) + " bought");
-        state.heroDPS = state.heroDPS + hero.autoDPS;
         state.heroCash = state.heroCash - hero.autoPrice;
+        state.heroDPS = state.heroDPS + hero.attack;
         state.heroDefence = state.heroDefence + hero.defence;
+        state.heroPatience = state.heroPatience + hero.patience;
+        state.heroGreed = state.heroGreed + hero.greed;
+        state.heroMaxHealth = state.heroMaxHealth + hero.health;
 
-        const newPrice = Math.round(hero.statePrice * Math.pow(hero.timesBought, 1.1));
-        const newNextDPS = Math.round((hero.stateDPS * 0.3) + hero.timesBought);
+        const nyAtt = hero.attack + hero.timesBought;
+        console.log("state:", state);
+        console.log("hero:", hero);
           return {
             ...state,
             timesBought: hero.timesBought + 1,
-            heroName: hero.heroName,
-            autoDPS: hero.autoDPS + newNextDPS,
-            autoPrice: hero.autoPrice + newPrice,
-            statePrice: hero.statePrice,
-            stateDPS: hero.stateDPS,
+            autoName: hero.autoName,
+            autoPrice: hero.autoPrice + hero.timesBought,
+            attack: nyAtt,
             defence: hero.defence,
+            health: hero.health,
+            patience: hero.patience,
+            greed: hero.greed,
           };
         }
-      console.log("Not enough cash");
       return hero;
     });
 
@@ -94,20 +102,15 @@ export default function allActions(state=initalState, action) {
   }
 
   case ActionTypes.INCREASE_CLICK_DAMAGE: {
-    if (state.heroCash >= state.clickUpgradePrice) {
-      console.log("Bought");
+    if(state.heroCash >= state.clickUpgradePrice) {
       return {
         ...state,
         heroClickDamage: state.heroClickDamage + 1,
         heroCash: state.heroCash - state.clickUpgradePrice,
         clickUpgradePrice: Math.round(state.clickUpgradePrice * 1.2),
       };
-    } else {
-      console.log("Not enough cash");
-      return {
-        ...state,
-      };
     }
+    return {...state};
   }
 
 
@@ -121,16 +124,22 @@ export default function allActions(state=initalState, action) {
   }
 
   case ActionTypes.MONSTER_ATTACK: {
-    let damage = state.monsterDamage / 10;
-    let attack = (state.heroRemainingHealth - damage);
+
+    const dmgTaken = (att, def) => {
+      const dmgRes = (att / 100) * def;
+      return att - dmgRes;
+    };
+
+    const monsterDMG = state.monsterDamage / 10;
+
+    let attacked = (state.heroRemainingHealth - dmgTaken(monsterDMG, state.heroDefence));
     return {
       ...state,
-      heroRemainingHealth: attack,
+      heroRemainingHealth: attacked,
     };
   }
 
   case ActionTypes.PREV_LEVEL: {
-    console.log("state.monsterMaxHealth:   " + state.monsterMaxHealth);
     return{
       ...state,
       isBoss:false,
@@ -141,40 +150,26 @@ export default function allActions(state=initalState, action) {
   }
 
   case ActionTypes.NEXT_LEVEL: {
-    console.log("state.monsterMaxHealth:   " + state.monsterMaxHealth + "   --   newHealth" + newHealth);
+    console.log("state.heroRemainingHealth > state.heroMaxHealth:", state.heroRemainingHealth + state.heroRemainingHealth + Math.round(state.monsterMaxHealth * 0.2) < state.heroMaxHealth);
+    const test = state.heroRemainingHealth + state.heroRemainingHealth + Math.round(state.monsterMaxHealth * 0.2) > state.heroMaxHealth ? state.heroMaxHealth : state.heroRemainingHealth + Math.round(state.monsterMaxHealth * 0.2)
 
       return{
         ...state,
         monsterMaxHealth: state.monsterMaxHealth + newHealth,
         monsterRemainingHealth: state.monsterMaxHealth + newHealth,
         monsterLevel: state.monsterLevel + 1,
-        heroRemainingHealth: state.heroRemainingHealth + Math.round(state.monsterMaxHealth * 0.2),
+        heroRemainingHealth: test,
       };
   }
 
   case ActionTypes.MORE_MONEY: {
-    let bossLevel = state.monsterLevel%10;
-    if(bossLevel === 0) {
-      const newBalance = Math.round(
-        state.heroCash + (state.bossLife * 0.1)
-      );
-      console.log("New balace: " + newBalance);
-      console.log("Gold gaiend from boss: " + Math.round(state.bossLife * 0.1));
-      return{
-        ...state,
-        heroCash: newBalance,
-      };
-    } else {
       const newBalance = Math.round(
         state.heroCash + (state.monsterMaxHealth * 0.01) + state.monsterLevel
       );
-      console.log("New balace: " + newBalance);
-      console.log("Gold gaiend from monster: " + Math.round((state.monsterMaxHealth * 0.01) + state.monsterLevel));
       return {
         ...state,
         heroCash: newBalance
-      }
-    }
+    };
   }
 
   case ActionTypes.SAME_LEVEL: {

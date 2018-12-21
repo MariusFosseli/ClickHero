@@ -6,31 +6,18 @@ import Hero from '../components/Hero';
 
 class App extends Component {
 
-  bossFight() {
-    if(this.props.isBoss === true) {
-      if(this.props.bossTimer < 0) {
-        this.props.prevLevel();
-        this.props.toggleAutoIncrease();
-      }
-      this.props.bossFight();
-    }
-  }
-
   asd() {
     if(this.props.monsterRemainingHealth < 1){
-      console.log("New level: ---------------------------------------------------------------");
       this.props.moreMoney();
       if(this.props.autoIncrease === false) {
         this.props.sameLevel();
       } else {
         this.props.nextLevel();
-        console.log("Level " + (this.props.monsterLevel - 1) + " completed!");
       }
     }
   }
 
   tick(){
-    this.bossFight();
     this.props.autoAttack();
     this.props.monsterAttack();
     this.asd();
@@ -51,7 +38,6 @@ class App extends Component {
     return (
       <div>
         <Hero
-          heroName={this.props.heroName}
           heroClickDamage={this.props.heroClickDamage}
           heroRemainingHealth={this.props.heroRemainingHealth}
           heroDPS={this.props.heroDPS}
@@ -90,7 +76,6 @@ const mapStateToProps = (state) => {
     heroDefence: state.heroDefence,
     clickUpgradePrice: state.clickUpgradePrice,
     autoIncrease: state.autoIncrease,
-    isLoggedIn: state.isLoggedIn,
     //Monster
     monsterMaxHealth: state.monsterMaxHealth,
     monsterRemainingHealth: state.monsterRemainingHealth,
