@@ -11,8 +11,13 @@ const Hero = props => {
       autoName={hero.autoName}
       autoPrice={hero.autoPrice}
       attack={hero.attack}
+      defence={hero.defence}
+      health={hero.health}
+      patience={hero.patience}
+      greed={hero.greed}
       timesBought={hero.timesBought}
       buyAutoAttacker={props.buyAutoAttacker}
+      useAbility={props.useAbility}
     />
   ));
   return(

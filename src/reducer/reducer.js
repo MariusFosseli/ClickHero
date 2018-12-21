@@ -45,7 +45,7 @@ const initalState = {
       autoPrice: 50,
       timesBought: 1,
       attack: 5,
-      defence: 0.2,
+      defence: 2,
       patience: 1,
       health: 0,
       greed: 0,
@@ -131,8 +131,9 @@ export default function allActions(state=initalState, action) {
     };
 
     const monsterDMG = state.monsterDamage / 10;
+    const heroDef = state.heroDefence / 10;
 
-    let attacked = (state.heroRemainingHealth - dmgTaken(monsterDMG, state.heroDefence));
+    let attacked = (state.heroRemainingHealth - dmgTaken(monsterDMG, heroDef));
     return {
       ...state,
       heroRemainingHealth: attacked,
@@ -186,6 +187,10 @@ export default function allActions(state=initalState, action) {
       ...state,
       autoIncrease: !state.autoIncrease,
     };
+  }
+
+  case ActionTypes.USE_ABILITY: {
+    console.log("action.use_ability triggered");
   }
 
   case ActionTypes.STEFFEN_ABILITY: {

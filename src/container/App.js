@@ -6,6 +6,13 @@ import Hero from '../components/Hero';
 
 class App extends Component {
 
+  youDied() {
+      if(this.props.heroRemainingHealth < 0) {
+        this.props.prevLevel();
+        this.props.toggleAutoIncrease();
+      }
+    }
+
   asd() {
     if(this.props.monsterRemainingHealth < 1){
       this.props.moreMoney();
@@ -18,6 +25,7 @@ class App extends Component {
   }
 
   tick(){
+    this.youDied();
     this.props.autoAttack();
     this.props.monsterAttack();
     this.asd();
@@ -46,6 +54,7 @@ class App extends Component {
           increaseClickDamage={this.props.increaseClickDamage}
           clickUpgradePrice={this.props.clickUpgradePrice}
           buyAutoAttacker={this.props.buyAutoAttacker}
+          useAbility={this.props.useAbility}
           heroes={this.props.heroes}
           toggleAutoIncrease={this.props.toggleAutoIncrease}
           autoIncrease={this.props.autoIncrease}
@@ -57,7 +66,6 @@ class App extends Component {
           monsterLevel={this.props.monsterLevel}
           clickAttackMonster={this.props.clickAttackMonster}
           isBoss={boss}
-          bossTimer={this.props.bossTimer}
           bossLife={this.props.bossLife}
           monsterDamage={this.props.monsterDamage}
         />
@@ -93,10 +101,10 @@ const mapDispatchToProps = (dispatch) => {
     clickAttackMonster: () => dispatch({ type: "CLICK_ATTACK_MONSTER" }),
     increaseClickDamage: () => dispatch({type: "INCREASE_CLICK_DAMAGE"}),
     buyAutoAttacker: (index) => dispatch({type: "BUY_AUTO_ATTACKER", index: index}),
+    useAbility: () => dispatch({type: "USE_ABILITY"}),
     autoAttack: () => dispatch({type: "AUTO_ATTACK"}),
     monsterAttack: () => dispatch({type: "MONSTER_ATTACK"}),
     nextLevel: () => dispatch({type: "NEXT_LEVEL"}),
-    bossFight: () => dispatch({type: "BOSS_FIGHT"}),
     prevLevel: () => dispatch({type: "PREV_LEVEL"}),
     moreMoney: () => dispatch({type: "MORE_MONEY"}),
     toggleAutoIncrease: () => dispatch({type: "TOGGLE_AUTO_INCREASE"}),

@@ -5,10 +5,10 @@ export const AUTO_ATTACK = "AUTO_ATTACK";
 export const MONSTER_ATTACK = "MONSTER_ATTACK";
 export const NEXT_LEVEL = "NEXT_LEVEL";
 export const PREV_LEVEL = "PREV_LEVEL";
-export const BOSS_FIGHT = "BOSS_FIGHT";
 export const MORE_MONEY = "MORE_MONEY";
 export const TOGGLE_AUTO_INCREASE = "TOGGLE_AUTO_INCREASE";
 export const SAME_LEVEL = "SAME_LEVEL";
 
+export const USE_ABILITY = "USE_ABILITY";
 export const STEFFEN_ABILITY = "STEFFEN_ABILITY";
-export const EMIL_ABILITY = "EMIL_ABILITY;"
+export const EMIL_ABILITY = "EMIL_ABILITY";

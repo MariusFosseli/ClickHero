@@ -29,6 +29,12 @@ export const monsterAttack = () => {
   };
 };
 
+export const useAbility = () => {
+  return {
+    type: ActionTypes.USE_ABILITY,
+  };
+};
+
 export const steffenAbility = () => {
   return {
     type: ActionTypes.STEFFEN_ABILITY,
